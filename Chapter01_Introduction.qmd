@@ -1,0 +1,418 @@
+---
+title: "R Basics"
+bibliography: references.bib
+---
+
+# **R Basics**
+
+This section covers everything you need to perform statistical analysis using R[@base]. Similar to other programming languages, R has a base package and an Integrated Development Environment (IDE). The base package allows you to run R code on your computer, while R Studio is an IDE specifically designed for developing R programs and packages.
+
+## Installing
+
+The R base package can be downloaded from the [official R website](https://cran.r-project.org/). Once on the website, select the precompiled binary for your operating system, download the file, and install it. To verify that R has been successfully installed, open your command prompt (cmd) or terminal and type `R` to start the R console. To exit the R console, type `q()`.
+
+```         
+$ R
+
+R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> q()
+```
+
+## Introduction to RStudio
+
+**RStudio** is an essential tool for anyone working with the **R programming language**. It serves as an integrated development environment (IDE) that makes working with R more efficient and user-friendly. Here's what you need to know:
+
+### **What is RStudio?**
+
+RStudio is a flexible, multifunctional open-source IDE that serves as a graphical front-end for working with R (version 3.0.1 or higher). Additionally, it supports other programming languages like Python and SQL. Key features of RStudio include a user-friendly interface, the ability to write and save reusable scripts, and easy access to imported data and created objects such as variables and functions. It provides exhaustive help on any object, offers code autocompletion, and facilitates project organization and collaboration. Users can preview plots, switch between the terminal and console, and track their operational history, making it an indispensable tool for data analysis and programming.
+
+### How to Install RStudio:
+
+To install RStudio, begin by visiting the [official RStudio website](https://posit.co/download/rstudio-desktop/). Scroll down to locate the download buttons for RStudio Desktop. Select the precompiled binary appropriate for your operating system, download the file, and install it.
+
+## Additional Resources:
+
+-   [DataCamp's RStudio Tutorial](https://www.datacamp.com/tutorial/r-studio-tutorial): A comprehensive guide for beginners.
+-   [Dataquest's Getting Started with R and RStudio](https://www.dataquest.io/blog/tutorial-getting-started-with-r-and-rstudio/): Learn key features and start programming in R.
+-   [GitHub Pages: Introduction to RStudio](https://ucsbcarpentry.github.io/2021-05-06-IntroR/01-rstudio-intro/): Fundamentals of RStudio for scientific projects.
+-   [Introduction to R and RStudio (GitBook)](https://r-unimelb.gitbook.io/rbook/introduction-to-r-and-rstudio/introduction-to-rstudio): Best practices for organizing code using RStudio.
+-   [RStudio for the Total Beginner](https://www.youtube.com/watch?v=FIrsOBy5k58): An accessible introduction to RStudio for the total beginner.
+
+### **Books**
+
+-   [Learning Statistics with R](https://learningstatisticswithr.com/)
+
+-   [Statistical Methods in Medical Research](https://onlinelibrary.wiley.com/doi/book/10.1002/9780470773666)
+
+## Descriptive Statistics
+
+Descriptive statistics is a branch of statistics that focuses on summarizing and describing the features of a dataset. It provides simple summaries about the sample and the measures, offering a way to present data in a meaningful and understandable form. The origins of descriptive statistics date back to the early days of statistical science, where it served as the foundational method for analyzing data.
+
+**History:**
+
+The roots of descriptive statistics can be traced back to ancient civilizations, such as the Babylonians and Egyptians, who used basic statistical methods to manage agricultural data, censuses, and astronomical information. However, the formal development of descriptive statistics began in the 17th and 18th centuries. John Graunt, an English demographer, is often credited with laying the groundwork for statistical analysis through his work on mortality rates in the 1660s. His pioneering efforts in collecting and analyzing data led to the birth of modern statistics.
+
+In the 18th century, the field was further advanced by the work of mathematicians like Pierre-Simon Laplace and Carl Friedrich Gauss, who developed key statistical concepts and methods. The 19th and 20th centuries saw the emergence of more sophisticated statistical techniques and the formalization of the discipline. Descriptive statistics evolved to include a variety of measures and graphical representations that remain fundamental to data analysis today.
+
+**Examples:**
+
+1.  **Measures of Central Tendency:**
+    -   **Mean:** The arithmetic average of a set of numbers. For example, in a dataset of test scores (80, 85, 90, 75, 95), the mean score is calculated as (80 + 85 + 90 + 75 + 95) / 5 = 85.
+    -   **Median:** The middle value in a dataset when the numbers are arranged in ascending order. In the test scores example, the median score is 85.
+    -   **Mode:** The most frequently occurring value in a dataset. If a dataset of test scores is (80, 85, 85, 90, 95), the mode is 85.
+2.  **Measures of Dispersion:**
+    -   **Range:** The difference between the highest and lowest values in a dataset. For test scores (75, 80, 85, 90, 95), the range is 95 - 75 = 20.
+    -   **Variance:** A measure of the spread of a dataset. It is the average of the squared differences from the mean. For the test scores, the variance can be calculated by finding the mean, subtracting each score from the mean, squaring the result, and then averaging those squared differences.
+    -   **Standard Deviation:** The square root of the variance, representing the average amount each value in the dataset differs from the mean. It provides insight into the dataset's overall variability.
+3.  **Graphical Representations:**
+    -   **Histograms:** Bar graphs that represent the frequency distribution of a dataset. They help in visualizing the shape and spread of data.
+    -   **Box Plots:** Graphical representations that show the distribution of a dataset based on a five-number summary: minimum, first quartile, median, third quartile, and maximum. Box plots highlight the central tendency and variability, as well as potential outliers.
+    -   **Pie Charts:** Circular charts divided into sectors representing proportions of the whole. They are useful for displaying categorical data and comparing parts of a whole.
+
+Descriptive statistics is essential in various fields, including economics, psychology, and social sciences, where it aids in making data-driven decisions. By providing a clear summary of data through measures of central tendency, dispersion, and graphical representations, descriptive statistics helps researchers and analysts interpret and communicate their findings effectively.
+
+#### R first steps
+
+To perform descriptive statistics, we need to assign some numbers to a variable. This can be done using the \`c()\` function, which stands for combine.
+
+```{r}
+my_numbers <- c(1,2,3,4)
+```
+
+There a few other handy ways to make numbers. We can use `seq()` to make a sequence. Here's making the numbers from 1 to 100
+
+```{r}
+one_to_one_hundred <- seq(1,100,1)
+```
+
+We can repeat things, using rep. Here's making 10 5s, and 25 1s:
+
+```{r}
+rep(10,5)
+rep(1,25)
+all_together_now <- c(rep(10,5),rep(1,25)) 
+```
+
+#### Sum
+
+Let's work with the numbers 1 to 256. First, we'll use the \`sum()\` function to add them up.
+
+```{r}
+one_to_one_hundred <- seq(1,100,1)
+sum(one_to_one_hundred)
+```
+
+#### Length
+
+We put 100 numbers into the variable `one_to_one_hundred`. We know how many numbers there are in there. How can we get R to tell us? We use `length()` for that.
+
+```{r}
+length(one_to_one_hundred)
+```
+
+### Central Tendency
+
+#### Mean
+
+Remember the mean of some numbers is their sum, divided by the number of numbers. We can compute the mean like this:
+
+```{r}
+sum(one_to_one_hundred)/length(one_to_one_hundred)
+```
+
+Or, we could just use the `mean()` function like this:
+
+```{r}
+mean(one_to_one_hundred)
+```
+
+#### Median
+
+The median is the number that lies exactly in the middle of a sorted list of numbers. If the list has an even number of elements, the median is calculated as the average of the two middle numbers. You can use the `median()` function to find it. For example, in a list of three numbers, the middle number is 2, so the median is 2.
+
+```{r}
+median(c(1,2,3))
+```
+
+#### Mode
+
+R does not have a built-in function for calculating the mode. You will need to write one yourself. Here is an example of how to create a mode function and use it. Remember, the mode is the number that appears most frequently in a dataset. In the example below, 1 occurs the most often, so the mode is 1.
+
+```{r}
+
+mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+mode(c(1,1,1,1,1,1,1,2,3,4))
+```
+
+### Variation
+
+We often want to understand how much the numbers vary. To describe this variability, we look at descriptive statistics such as **range**, **variance**, the **standard deviation**, and others.
+
+First, let's remind ourselves what variation looks like (it refers to differences among numbers). We'll sample 1000 numbers from a normal distribution with a mean of 101 and a standard deviation of 35. Then, we'll create a histogram to visualize the variation around the mean of 10.
+
+```{r}
+sample_numbers <- rnorm(1000,101,35)
+hist(sample_numbers)
+```
+
+#### range
+
+The range is the minimum and maximum values in the set, we use the `range` function.
+
+```{r}
+range(sample_numbers)
+```
+
+#### var = variance
+
+We can find the sample variance using `var()`.
+
+```{r}
+var(sample_numbers)
+
+```
+
+#### sd = standard deviation
+
+We find the sample standard deviation us SD.
+
+```{r}
+sd(sample_numbers)
+```
+
+Remember that the standard deviation is just the square root of the variance, see:
+
+```{r}
+sqrt(var(sample_numbers))
+```
+
+#### Descriptives Review
+
+```{r}
+sample_numbers <- rnorm(1000,101,35)
+
+sum(sample_numbers)
+length(sample_numbers)
+mean(sample_numbers)
+median(sample_numbers)
+my_mode(sample_numbers)
+range(sample_numbers)
+var(sample_numbers)
+sd(sample_numbers)
+```
+
+### Descriptives by conditions
+
+In some instances, a single variable may contain a number of values, which can be analyzed using the aforementioned functions to obtain descriptive statistics. Conversely, in the majority of cases encountered in this course, a data frame comprising numerous numerical values representing different conditions will be employed. In such instances, it is necessary to identify descriptive statistics for each set of values within each condition.
+
+Fortunately, the R programming language is highly adept at performing this task in a single operation. To illustrate this concept, consider the following example. A data frame containing 10 numbers for each condition will be created. There are 10 conditions, each labeled A, B, C, D, E, F, G, H, I, and J.
+
+```{r}
+scores <- rnorm(100,10,5)
+conditions <- rep(c("A","B","C","D","E","F","G","H","I","J"), each =10)
+my_df <- data.frame(conditions,scores)
+```
+
+A review of the `my_df` data frame reveals that it contains 100 rows. Each row represents a distinct condition, with a label in the `conditions` column and 10 scores for that condition in the `scores` column. One might inquire as to the mean of the scores in each condition. In order to obtain the mean of the scores for each condition, one must find the mean of 10 scores.
+
+The slow way to do it would be like this:
+
+```{r}
+mean(my_df[my_df$conditions=="A",]$scores)
+mean(my_df[my_df$conditions=="B",]$scores)
+mean(my_df[my_df$conditions=="C",]$scores)
+# and then keep going
+```
+
+It is evident that no individual or entity is willing to assume the responsibility of performing this task. It is therefore prudent to encapsulate this functionality, and R provides us with the necessary tools to automate this functionality.
+
+#### group_by and summarise
+
+We can easily do everything all at once using the `group_by` and `summarise` function from the `dplyr` package. Just watch
+
+```{r}
+library(dplyr)
+
+my_df %>%
+  group_by(conditions) %>%
+  summarise(means = mean(scores))
+
+```
+
+A few points require further consideration. Firstly, the printout of this was of an inferior quality. A solution to this issue is to create a new variable containing the results of the code and then use the `knitr::kable` function to print the variable in a more aesthetically pleasing manner when the document is compiled.
+
+```{r}
+
+summary_df <- my_df %>%
+               group_by(conditions) %>%
+               summarise(means = mean(scores))
+
+knitr::kable(summary_df)
+
+```
+
+#### Multiple descriptives
+
+The most advantageous aspect of the `dplyr` method is that it permits the addition of multiple functions, resulting in the generation of multiple summary statistics in a unified format. To illustrate this, consider the calculation of the standard deviation:
+
+```{r}
+
+summary_df <- my_df %>%
+               group_by(conditions) %>%
+               summarise(means = mean(scores),
+                         sds = sd(scores))
+
+knitr::kable(summary_df)
+
+```
+
+Furthermore, the minimum and maximum values will be included.
+
+```{r}
+
+summary_df <- my_df %>%
+               group_by(conditions) %>%
+               summarise(means = mean(scores),
+                         sds = sd(scores),
+                         min = min(scores),
+                         max = max(scores))
+
+knitr::kable(summary_df)
+
+```
+
+### Describing gapminder
+
+Having established the methodology for obtaining descriptive statistics from R, we may now proceed to apply this methodology to a real data set. We will now proceed to inquire about the gapminder data.
+
+```{r}
+library(gapminder)
+gapminder_df <- gapminder
+```
+
+***Note***: The code will only function properly if the gapminder package has been installed. It is imperative that the user is connected to the internet prior to commencing the installation process. To do so, navigate to the Packages tab, located in the bottom right panel, and select the option to install. Subsequently, a search for the gapminder package should be conducted, after which it should be selected and installed.
+
+#### What are some descriptive for Life expectancy by continent?
+
+Copy the code from the last part of descriptives using `dplyr`, then change the names like this:
+
+```{r}
+
+summary_df <- gapminder_df %>%
+               group_by(continent) %>%
+               summarise(means = mean(lifeExp),
+                         sds = sd(lifeExp),
+                         min = min(lifeExp),
+                         max = max(lifeExp))
+
+knitr::kable(summary_df)
+
+```
+
+### Generalization Exercise
+
+Complete the generalization exercise described in your R Markdown document for this lab.
+
+1.  What is the mean, standard deviation, minimum and maximum life expectancy for all the gapminder data (across all the years and countries). Hint: do not use `group_by`
+
+2.  What is the mean, standard deviation, minimum and maximum life expectancy for all of the continents in 2007, the most recent year in the dataset. Hint: add another pipe using `filter(year==2007) %>%`
+
+### Writing assignment
+
+Complete the writing assignment described in your R Markdown document for this lab. When you have finished everything. Knit the document and hand in your stuff (you can submit your .RMD file to blackboard if it does not knit.)
+
+Your writing assignment is to answer these questions in full sentences using simple plain langauge:
+
+1.  Define the mode.
+2.  Explain what would need to happen in order for a set of numbers to have two modes
+3.  Define the median
+4.  Define the mean
+5.  Define the range
+6.  When calculating the standard deviation, explain what the difference scores represent
+7.  Explain why the difference scores are squared when calculating the standard deviation
+8.  If one set of numbers had a standard deviation of 5, and another had a standard deviation of 10, which set of numbers would have greater variance, explain why.
+
+### Descriptive Statistics and Histograms in R
+
+Now let's use a real dataset to calculate the same measures of central tendency and variability as in the previous example, but with the addition of a histogram to visualize the distribution and relate back to the descriptive statistics. Here is a link to the life expectancy dataset we used for our graphing tutorial. It is named `life_expectancy.csv`.
+
+Suppose we wanted to know about life expectancy around the world in 2018. This will include calculating descriptive statistics and graphing a histogram to examine the distribution of our data. R allows us to handle these tasks efficiently with a few lines of code.
+
+#### Step-by-Step Process:
+
+1.  **Load the Data:**
+
+    -   First, ensure you have the dataset `life_expectancy.csv` in your working directory.
+    -   Load the data into R.
+
+    ``` r
+    # Load necessary libraries
+    library(ggplot2)
+    library(dplyr)
+
+    # Load the data
+    life_expectancy <- read.csv("data/life_expectancy.csv")
+    ```
+
+2.  **Calculate Descriptive Statistics:**
+
+    -   Calculate the measures of central tendency (mean, median, mode) and measures of variability (range, standard deviation, variance) for life expectancy in 2018.
+
+    ``` r
+    # Filter for the year 2018
+    life_2018 <- life_expectancy %>% filter(Year == 2018) %>% select(life_expectancy)
+
+    # Calculate descriptive statistics
+
+    # Summarize the results
+    ```
+
+3.  **Create a Histogram:**
+
+    -   Plot a histogram to visualize the distribution of life expectancy in 2018, and overlay a normal curve.
+
+    ``` r
+    # Plot the histogram with a normal curve
+    ggplot(life_2018, aes(x = life_expectancy)) +
+      geom_histogram(aes(y = ..density..), binwidth = 2, fill = "skyblue", color = "black") +
+      stat_function(fun = dnorm, args = list(mean = mean_life, sd = sd_life), color = "red", size = 1) +
+      labs(title = "Histogram of Life Expectancy in 2018",
+           x = "Life Expectancy",
+           y = "Density") +
+      theme_minimal()
+    ```
+
+This process will produce a histogram displaying the distribution of life expectancy in 2018 with a superimposed normal curve for comparison.
+
+#### Interpretation:
+
+Think about what the mean, median, and mode indicate about the shape of the distribution. Is this confirmed when you look at the histogram? How does the shape of this distribution compare to the symmetrical normal distribution that is superimposed over it? The histogram helps visualize the skewness and spread of the data, providing a deeper understanding of the life expectancy distribution in 2018.
+
+### Practice Problems
+
+------------------------------------------------------------------------
+
+1.  Using the life expectancy data set, produce a table of output showing the descriptive statistics (measures of central tendency and variability) for both years 1800 and 1934 (during the Great Depression).
+
+2.  Plot histograms of life expectancy for both years. How are these distributions different? (Hint: Plot these on the same axes so that they are comparable).
