@@ -1,5 +1,5 @@
 project:
   title: "StatisticalInMedicalResearch"
-
+  type: website
+  output-dir: docs
 editor: visual
-
