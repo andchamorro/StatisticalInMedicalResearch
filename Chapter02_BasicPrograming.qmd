@@ -1,0 +1,536 @@
+---
+title: "Basic programing"
+author: "Andres Chamorro"
+format: html
+---
+
+This lecture has avoided the term "programming" due to its intimidating connotation. While advanced programming is a specialized skill, the basics are accessible and can achieve impressive results. This chapter introduces basic programming concepts in R, a language you've been using interactively so far.
+
+Programming is essentially writing instructions for a computer in a language it can interpret, as a cooking recipe in a language like R. You've been entering commands at the prompt, but you can also write a program using R commands. This means you're close to being able to program in R at a beginner's level.
+
+Computer programs can take many forms, including scripts, which are of interest for everyday data analysis in R. Scripts involve writing all commands in a text file, which R can execute using the `source()` function.
+
+Scripts are useful for several reasons. They allow you to save your work effectively, making it easier to correct mistakes without starting from scratch. They also let you leave notes for yourself, aiding recall of your analysis process. Finally, scripts make it easier to reuse or adapt your analyses for similar problems in the future.
+
+The interactive style of entering commands one at a time has its uses, but also drawbacks. It's challenging to save your work effectively, tedious to correct mistakes, and difficult to leave notes or reuse analyses. Scripts address these issues, making them a valuable tool for data analysis.
+
+### Write scripts using Rstudio
+
+RStudio, a text editor designed for scripting, offers features like syntax highlighting and automatic `source()` command construction. It also supports R Markdown, allowing you to embed R code in a Markdown document and publish it online.
+
+When writing scripts, it's beneficial to include comments explaining the code. This aids understanding for others and future you. For instance, a script to analyze `demographic_data.csv` might include comments about its purpose, author, and date, as well as explanations of each section of code.
+
+```{r}
+# --- csv_analysis.R
+# A script to analyse a CSV file
+#  author: Andres Chamorro
+#  date: Jun 26 2024
+
+# Load the necessary library
+library(readr)
+
+# Load the data from the CSV file
+data <- read_csv("data/demographic_data.csv")
+
+# Display the structure of the data
+print(str(data))
+
+# Summary statistics for each column
+summary_stats <- summary(data)
+print(summary_stats)
+
+# If there are any specific columns you want to analyze, you can do so. 
+# For example, if you have a column named 'Age', you can find its mean like this:
+mean_age <- mean(data$Age, na.rm = TRUE) # 'na.rm = TRUE' is used to ignore NA values
+print(paste("Mean age: ", mean_age))
+
+# You can also create a histogram of this column
+hist(data$Age, main = "Age Distribution", xlab = "Age")
+
+# Save the summary statistics to a CSV file
+write_csv(summary_stats, "summary_stats.csv")
+```
+
+Scripts behave similarly to command-line inputs, with a few exceptions. For instance, scripts don't auto-print variables; you must explicitly print them. Also, while `library()` is used to load packages at the command line, scripts conventionally use `require()`, which produces a warning rather than an error if the package doesn't exist.
+
+When writing your data analysis as a script, it's beneficial to include detailed comments in the code. This helps others, or even your future self, understand what's going on. As a beginner, thorough commenting is especially useful as it not only cultivates the habit of commenting but also clarifies your own understanding of what you're trying to achieve. Consider the following script:
+
+```{r}
+## --- csv_analysis.R
+# A script to analyse a CSV file
+#  author: Andres Chamorro
+#  date: Jun 26 2024
+
+# Load the necessary library
+# This is required to read CSV files in R
+library(readr)
+
+# Load the data from the CSV file
+# We're using the read_csv function from the readr package
+data <- read_csv("data/demographic_data.csv")
+
+# Display the structure of the data
+# This gives us an overview of the data's format and contents
+print(str(data))
+
+# Summary statistics for each column
+# This provides a statistical summary for each column in the data
+summary_stats <- summary(data)
+print(summary_stats)
+
+# Calculate the mean of a specific column, 'Age' in this case
+# 'na.rm = TRUE' is used to ignore NA values
+mean_age <- mean(data$Age, na.rm = TRUE) 
+print(paste("Mean age: ", mean_age))
+
+# Create a histogram of the 'Age' column
+# This visualizes the distribution of ages in the data
+hist(data$Age, main = "Age Distribution", xlab = "Age")
+
+# Save the summary statistics to a CSV file
+# This allows us to easily access and share the summary statistics later
+write_csv(summary_stats, "summary_stats.csv")
+```
+
+In this script, I've included comments explaining the purpose of the script, who wrote it, and when it was written. I've also added comments explaining what each section of the code does. While people don't usually comment this thoroughly in real life, the basic idea is sound: your script should explain itself. As expected, R ignores all the commented parts. When we run this script, it announces its behavior, which helps ensure that the output makes sense when the script is executed. The first two lines of the output tell us a lot about what the script is doing behind the scenes. This is usually a good idea, as it helps ensure that the output makes sense when the script is executed.
+
+Commands in a script generally behave the same as if you typed them at the command line. However, to print a variable on screen, you need to explicitly use the `print()` function. For instance, consider the following script:
+
+```{r}
+## --- csv_analysis.R
+# A script to analyse a CSV file
+#  author: Andres Chamorro
+#  date: Jun 26 2024
+
+
+data <- read_csv("data/demographic_data.csv")
+data
+```
+
+This script creates the variable `data` when you `source()` it, but it won't print anything on screen.
+
+Apart from the lack of "auto-printing", scripts and command-line inputs are similar. There are some stylistic differences, though. For example, while `library()` is used to load packages at the command line, scripts conventionally use `require()`. The two commands are essentially the same, but if the package doesn't exist, `require()` produces a warning, while `library()` gives an error. This means that if the `require()` command fails in your script, R will continue to execute the rest of the script.
+
+At this point, you've learned the basics of scripting. You can now say that you can program in R, albeit at a basic level. There's much more to learn, but if you can write scripts like these, you're indeed programming. The rest of this chapter introduces key commands to enhance your programs. To help you get used to thinking in terms of scripts, most of the examples in this chapter will be presented as scripts.
+
+## Flow control
+
+In scripting, R doesn't necessarily start at the top of the file and run straight through to the end. Depending on how you write the script, you can have R repeat several commands or skip over different commands. This topic is referred to as ***flow control***, and the first concept to discuss in this respect is the idea of a ***loop***. A loop in R is a control flow statement that allows you to repeat a block of code multiple times. There are several types of loops in R, each serving different purposes and use cases. The most common types of loops in R are for loops and while loops.
+
+A loop in R is a control flow statement that allows you to repeat a block of code multiple times. There are several types of loops in R, each serving different purposes and use cases. The most common types of loops in R are `for` loops and `while` loops.
+
+### `for` Loop
+
+A `for` loop is used to iterate over a sequence (such as a vector, list, or any iterable object) and execute a block of code for each element in the sequence.
+
+#### Syntax:
+
+```{r}
+for (variable in sequence) {
+  # Code to be executed for each element
+}
+```
+
+#### Example:
+
+```{r}
+# Print numbers from 1 to 5
+for (i in 1:5) {
+  print(i)
+}
+```
+
+### `while` Loop
+
+A `while` loop repeatedly executes a block of code as long as a specified condition is `TRUE`.
+
+#### Syntax:
+
+```{r}
+while (condition) {
+  # Code to be executed as long as the condition is TRUE
+}
+```
+
+#### Example:
+
+```{r}
+# Print numbers from 1 to 5
+i <- 1
+while (i <= 5) {
+  print(i)
+  i <- i + 1
+}
+```
+
+### `repeat` Loop
+
+A `repeat` loop executes an infinite loop unless explicitly stopped using the `break` statement.
+
+#### Syntax:
+
+```{r}
+repeat {
+  # Code to be executed repeatedly
+  if (condition) {
+    break
+  }
+}
+```
+
+#### Example:
+
+```{r}
+# Print numbers from 1 to 5
+i <- 1
+repeat {
+  print(i)
+  i <- i + 1
+  if (i > 5) {
+    break
+  }
+}
+```
+
+### Breaking Out of Loops
+
+You can use the `break` statement to exit a loop prematurely, and the `next` statement to skip the current iteration and move to the next iteration of the loop.
+
+#### `break` Example:
+
+```{r}
+for (i in 1:10) {
+  if (i == 6) {
+    break
+  }
+  print(i)
+}
+```
+
+#### `next` Example:
+
+```{r}
+for (i in 1:10) {
+  if (i %% 2 == 0) {
+    next
+  }
+  print(i)
+}
+```
+
+### Loop Alternatives
+
+In R, vectorized operations and the `apply` family of functions (`lapply`, `sapply`, `apply`, `tapply`, `mapply`) are often used as alternatives to loops for more efficient and concise code.
+
+#### Example using `lapply`:
+
+```{r}
+# Create a list of numbers from 1 to 5
+numbers <- list(1, 2, 3, 4, 5)
+
+# Apply a function to each element of the list
+squared_numbers <- lapply(numbers, function(x) x^2)
+
+# Print the squared numbers
+print(squared_numbers)
+```
+
+Loops are powerful tools in R for repeating tasks and iterating over data structures. However, for performance and readability, vectorized operations and `apply` functions are often preferred.
+
+Let's use a bioinformatics example. Suppose we have a vector of DNA sequences and we want to calculate the GC content of each sequence. Here's the script:
+
+```{r}
+## --- bioexample.R
+#  author: Andres Chamorro
+#  date: Jun 26 2024
+
+# The DNA sequences
+sequences <- c("ATGCGTA", "CGTACGT", "TACGTACG")
+
+# Loop over the sequences
+for (seq in sequences) {
+
+  # Calculate the GC content
+  gc_content <- (sum(nchar(gsub("[AT]", "", seq))) / nchar(seq)) * 100
+  
+  # Print the GC content
+  print(paste("The GC content of", seq, "is", round(gc_content, 2), "%"))
+  
+}
+```
+
+In this script, the vector of possible values for the `seq` variable corresponds to the DNA sequences. The body of the loop calculates the GC content of each sequence and prints it. When we run this script, R starts at the top and creates a new variable called `seq` and assigns it a value of the first DNA sequence. It then moves down to the loop, and "notices" that there are more sequences in the vector. It then enters the body of the loop (inside the curly braces). The commands here instruct R to calculate the GC content of the sequence and print it. R then returns to the top of the loop, and rechecks if there are more sequences in the vector. If there are, then R goes on to execute all ... well, you get the idea. This continues until all sequences in the vector have been processed. At this point, the loop stops, and R finally reaches the end of the script.
+
+Conditional statements in R allow you to execute different pieces of code based on whether a condition is true or false. The most common conditional statements in R are `if`, `else`, and `else if`.
+
+### Conditional statements
+
+The `if` statement allows you to execute a block of code if a condition is true.
+
+#### Syntax:
+
+```{r}
+if (condition) {
+  # Code to execute if condition is true
+}
+```
+
+#### Example:
+
+```{r}
+x <- 5
+
+if (x > 0) {
+  print("x is positive")
+}
+```
+
+#### `if-else` Statement
+
+The `if-else` statement allows you to execute one block of code if a condition is true and another block of code if the condition is false.
+
+#### Syntax:
+
+```{r}
+if (condition) {
+  # Code to execute if condition is true
+} else {
+  # Code to execute if condition is false
+}
+```
+
+#### Example:
+
+```{r}
+x <- -3
+
+if (x > 0) {
+  print("x is positive")
+} else {
+  print("x is negative or zero")
+}
+```
+
+The `if-else` statement allows you to check multiple conditions and execute different blocks of code based on which condition is true.
+
+#### Example:
+
+```{r}
+x <- 0
+
+if (x > 0) {
+  print("x is positive")
+} else if (x < 0) {
+  print("x is negative")
+} else {
+  print("x is zero")
+}
+```
+
+Conditional statements are essential in R for decision-making and control flow, allowing you to execute different code paths based on specific conditions.
+
+## Functions in R
+
+A function in R is a block of code that performs a specific task, which can be reused and executed when called. Functions can take inputs (arguments), perform operations on those inputs, and return outputs.
+
+### Defining Functions
+
+#### Syntax:
+
+```{r}
+function_name <- function(arg1, arg2, ...) {
+  # Code to execute
+  return(result)
+}
+```
+
+#### Example:
+
+```{r}
+# Define a simple function to add two numbers
+add_numbers <- function(a, b) {
+  sum <- a + b
+  return(sum)
+}
+
+# Call the function
+result <- add_numbers(3, 5)
+print(result)  # Output: 8
+```
+
+### Custom Functions
+
+Functions in R are powerful tools that can be customized to perform a wide variety of tasks. In bioinformatics, they are particularly useful for tasks such as sequence analysis, gene expression normalization, and sequence alignment. By encapsulating code into functions, you can make your analysis more atomic, reusable, and easier to understand.
+
+#### 1. **DNA Sequence Analysis**
+
+##### Example: Function to Count Nucleotides
+
+Counting nucleotides is a fundamental task in genomics. Understanding the composition of a DNA sequence can provide insights into genetic variations and functions.
+
+```{r}
+# Function to count nucleotides in a DNA sequence
+count_nucleotides <- function(dna_sequence) {
+  counts <- table(strsplit(dna_sequence, "")[[1]])
+  return(counts)
+}
+
+# Test the function
+dna <- "ATGCTAGCTAGGCTA"
+nucleotide_counts <- count_nucleotides(dna)
+print(nucleotide_counts)  # Output: A C G T 
+                          #         4 4 3 4
+```
+
+#### 2. **Protein Sequence Analysis**
+
+##### Example: Function to Translate DNA to Protein
+
+Translating DNA to protein is crucial for understanding gene expression and function. This function helps in converting nucleotide sequences into their corresponding amino acid sequences, aiding in protein analysis.
+
+```{r}
+# Function to translate DNA sequence to protein sequence
+translate_dna <- function(dna_sequence) {
+  codon_table <- c("ATA" = "I", "ATC" = "I", "ATT" = "I", "ATG" = "M",
+                   "ACA" = "T", "ACC" = "T", "ACG" = "T", "ACT" = "T",
+                   # ... (complete the codon table)
+                   "TAA" = "*", "TAG" = "*", "TGA" = "*")
+
+  protein_sequence <- sapply(seq(1, nchar(dna_sequence) - 2, by = 3), function(i) {
+    codon <- substr(dna_sequence, i, i + 2)
+    return(codon_table[[codon]])
+  })
+
+  return(paste(protein_sequence, collapse = ""))
+}
+
+# Test the function
+dna <- "ATGGTCTAACGTA"
+protein <- translate_dna(dna)
+print(protein)  # Output: "MVT*"
+```
+
+#### 3. **Gene Expression Analysis**
+
+##### Example: Function to Normalize Gene Expression Data
+
+Normalizing gene expression data is essential for comparing expression levels across different genes and samples. Log transformation is a common normalization method to reduce skewness and stabilize variance.
+
+```{r}
+# Function to normalize gene expression data using log transformation
+normalize_expression <- function(expression_data) {
+  normalized_data <- log2(expression_data + 1)
+  return(normalized_data)
+}
+
+# Test the function
+expression_data <- c(100, 200, 300, 400, 500)
+normalized_data <- normalize_expression(expression_data)
+print(normalized_data)  # Output: 6.658211 7.643856 8.228819 8.643856 8.965784
+```
+
+#### 4. **Sequence Alignment**
+
+##### Example: Function to Perform Global Alignment
+
+Sequence alignment is a core bioinformatics task used to find similarities between sequences, which can indicate functional, structural, or evolutionary relationships. The `pairwiseAlignment` function from the Biostrings package in Bioconductor provides a robust way to perform sequence alignments.
+
+```{r}
+# Load necessary library
+library(Biostrings)
+
+# Function to perform global alignment between two sequences
+global_alignment <- function(seq1, seq2) {
+  alignment <- pairwiseAlignment(seq1, seq2, type = "global")
+  return(alignment)
+}
+
+# Test the function
+seq1 <- DNAString("ATGCTAGCTAG")
+seq2 <- DNAString("ATGCTAGGCTA")
+alignment_result <- global_alignment(seq1, seq2)
+print(alignment_result)
+```
+
+## Exercises
+
+### Exercise 1: Analyzing Gene Expression Data
+
+#### Objective:
+
+Write a function in R to calculate basic descriptive statistics (mean, median, standard deviation) for a given gene expression dataset.
+
+#### Instructions:
+
+1.  Create a random vector `gene_expression`, of size 100 with uniform distribution.
+2.  Write a function `describe_expression` that takes a numeric vector as input and returns a list with the mean, median, and standard deviation of the input data.
+
+### Exercise 2: Descriptive Statistics of Protein Abundances
+
+#### Objective:
+
+Analyze the protein abundance data from different samples and calculate descriptive statistics for each sample.
+
+#### Instructions:
+
+1.  Create a data frame `protein_data` with the following values:
+    -   Sample1: `c(0.5, 0.8, 1.0, 1.2, 0.9)`
+    -   Sample2: `c(1.5, 1.7, 1.6, 1.8, 1.9)`
+    -   Sample3: `c(2.1, 2.3, 2.2, 2.5, 2.4)`
+2.  Write a function `summary_statistics` that calculates the mean, median, and standard deviation for each sample in the data frame.
+3.  Test the function with the `protein_data` data frame.
+
+#### Template:
+
+```{r}
+# Create the data frame with protein abundance data
+protein_data <- data.frame(
+  # Code here
+)
+
+# Define the function to calculate descriptive statistics for each numeric column in a data frame
+summary_statistics <- function(data) {
+  # Check if input is a data frame
+  if (!is.data.frame(data)) {
+    stop("Input must be a data frame")
+  }
+  
+  # Initialize an empty list to store statistics for each column
+  stats_list <- list()
+  
+  # Iterate over each column in the data frame
+  for (colname in names(data)) {
+    # Check if the column is numeric
+    if (is.numeric(data[[colname]])) {
+      # Compute descriptive statistics on column colname
+      mean_value = 0.0 # Dummy value
+      median_value = 0.0 # Dummy value
+      sd_value = 0.0 # Dummy value
+      # Example
+      min_value <- min(data[[colname]], na.rm = TRUE)
+      max_value <- max(data[[colname]], na.rm = TRUE)
+      
+      # Create a named vector of statistics
+      stats <- c(mean = mean_value, median = median_value, sd = sd_value, min = min_value, max = max_value)
+      # Add the statistics to the list with the column name as the key
+      stats_list[[colname]] <- stats
+    }
+  }
+  # Convert the list of statistics to a data frame
+  stats_df <- do.call(rbind, stats_list)
+  # Return the data frame of descriptive statistics
+  return(as.data.frame(stats_df))
+}
+
+# Test the function
+protein_stats <- summary_statistics(protein_data)
+knitr::kable(protein_stats)
+```
+
+#### Expected Output:
+
+|         | mean | median |        sd | min | max |
+|:--------|-----:|-------:|----------:|----:|----:|
+| Sample1 | 0.88 |    0.9 | 0.2588436 | 0.5 | 1.2 |
+| Sample2 | 1.70 |    1.7 | 0.1581139 | 1.5 | 1.9 |
+| Sample3 | 2.30 |    2.3 | 0.1581139 | 2.1 | 2.5 |
