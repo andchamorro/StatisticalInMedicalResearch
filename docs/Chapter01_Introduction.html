@@ -149,6 +149,13 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistical Analysis in Medical Research Using R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -421,7 +428,7 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  -0.9984596 210.9029275</code></pre>
+<pre><code>[1] -20.99564 199.26425</code></pre>
 </div>
 </div>
 </section>
@@ -431,7 +438,7 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1144.178</code></pre>
+<pre><code>[1] 1355.992</code></pre>
 </div>
 </div>
 </section>
@@ -441,14 +448,14 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 33.8257</code></pre>
+<pre><code>[1] 36.8238</code></pre>
 </div>
 </div>
 <p>Remember that the standard deviation is just the square root of the variance, see:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(sample_numbers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 33.8257</code></pre>
+<pre><code>[1] 36.8238</code></pre>
 </div>
 </div>
 </section>
@@ -459,7 +466,7 @@ Type 'q()' to quit R.
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 102966.3</code></pre>
+<pre><code>[1] 102476</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -467,27 +474,27 @@ Type 'q()' to quit R.
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 102.9663</code></pre>
+<pre><code>[1] 102.476</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 102.5037</code></pre>
+<pre><code>[1] 102.2365</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 48.81121</code></pre>
+<pre><code>[1] 109.5741</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  -4.373222 209.174178</code></pre>
+<pre><code>[1]  -5.618234 220.171208</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1193.916</code></pre>
+<pre><code>[1] 1237.785</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 34.55309</code></pre>
+<pre><code>[1] 35.18217</code></pre>
 </div>
 </div>
 </section>
@@ -506,15 +513,15 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"A"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 11.68598</code></pre>
+<pre><code>[1] 8.383671</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"B"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.796731</code></pre>
+<pre><code>[1] 9.801244</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"C"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.365357</code></pre>
+<pre><code>[1] 11.44105</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and then keep going</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -545,16 +552,16 @@ Attaching package: 'dplyr'</code></pre>
 <pre><code># A tibble: 10 × 2
    conditions means
    &lt;chr&gt;      &lt;dbl&gt;
- 1 A          11.7 
+ 1 A           8.38
  2 B           9.80
- 3 C           9.37
- 4 D          13.4 
- 5 E          10.9 
- 6 F          13.0 
- 7 G           8.04
- 8 H           7.42
- 9 I           9.37
-10 J          14.2 </code></pre>
+ 3 C          11.4 
+ 4 D           7.97
+ 5 E           7.78
+ 6 F          12.1 
+ 7 G           9.83
+ 8 H           9.98
+ 9 I          12.8 
+10 J           9.42</code></pre>
 </div>
 </div>
 <p>A few points require further consideration. Firstly, the printout of this was of an inferior quality. A solution to this issue is to create a new variable containing the results of the code and then use the <code>knitr::kable</code> function to print the variable in a more aesthetically pleasing manner when the document is compiled.</p>
@@ -575,43 +582,43 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">11.685979</td>
+<td style="text-align: right;">8.383671</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">9.796731</td>
+<td style="text-align: right;">9.801244</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">9.365357</td>
+<td style="text-align: right;">11.441048</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">13.350847</td>
+<td style="text-align: right;">7.974663</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">10.900329</td>
+<td style="text-align: right;">7.781818</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">12.950566</td>
+<td style="text-align: right;">12.135713</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">8.038875</td>
+<td style="text-align: right;">9.825402</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">7.416168</td>
+<td style="text-align: right;">9.977129</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">9.373454</td>
+<td style="text-align: right;">12.819841</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">14.167422</td>
+<td style="text-align: right;">9.419859</td>
 </tr>
 </tbody>
 </table>
@@ -640,53 +647,53 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">11.685979</td>
-<td style="text-align: right;">4.604349</td>
+<td style="text-align: right;">8.383671</td>
+<td style="text-align: right;">4.628645</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">9.796731</td>
-<td style="text-align: right;">5.058866</td>
+<td style="text-align: right;">9.801244</td>
+<td style="text-align: right;">5.308608</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">9.365357</td>
-<td style="text-align: right;">4.244652</td>
+<td style="text-align: right;">11.441048</td>
+<td style="text-align: right;">3.989864</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">13.350847</td>
-<td style="text-align: right;">3.847114</td>
+<td style="text-align: right;">7.974663</td>
+<td style="text-align: right;">3.307205</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">10.900329</td>
-<td style="text-align: right;">4.728088</td>
+<td style="text-align: right;">7.781818</td>
+<td style="text-align: right;">4.259350</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">12.950566</td>
-<td style="text-align: right;">4.964613</td>
+<td style="text-align: right;">12.135713</td>
+<td style="text-align: right;">5.319706</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">8.038875</td>
-<td style="text-align: right;">3.083009</td>
+<td style="text-align: right;">9.825402</td>
+<td style="text-align: right;">5.487877</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">7.416168</td>
-<td style="text-align: right;">5.132512</td>
+<td style="text-align: right;">9.977129</td>
+<td style="text-align: right;">3.941479</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">9.373454</td>
-<td style="text-align: right;">4.863764</td>
+<td style="text-align: right;">12.819841</td>
+<td style="text-align: right;">3.605219</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">14.167422</td>
-<td style="text-align: right;">5.940609</td>
+<td style="text-align: right;">9.419859</td>
+<td style="text-align: right;">3.559865</td>
 </tr>
 </tbody>
 </table>
@@ -716,73 +723,73 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">11.685979</td>
-<td style="text-align: right;">4.604349</td>
-<td style="text-align: right;">5.4789264</td>
-<td style="text-align: right;">18.92746</td>
+<td style="text-align: right;">8.383671</td>
+<td style="text-align: right;">4.628645</td>
+<td style="text-align: right;">0.7328838</td>
+<td style="text-align: right;">13.89646</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">9.796731</td>
-<td style="text-align: right;">5.058866</td>
-<td style="text-align: right;">2.3085178</td>
-<td style="text-align: right;">17.67687</td>
+<td style="text-align: right;">9.801244</td>
+<td style="text-align: right;">5.308608</td>
+<td style="text-align: right;">3.5712960</td>
+<td style="text-align: right;">19.72275</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">9.365357</td>
-<td style="text-align: right;">4.244652</td>
-<td style="text-align: right;">3.0580007</td>
-<td style="text-align: right;">14.06787</td>
+<td style="text-align: right;">11.441048</td>
+<td style="text-align: right;">3.989864</td>
+<td style="text-align: right;">4.7661719</td>
+<td style="text-align: right;">17.85150</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">13.350847</td>
-<td style="text-align: right;">3.847114</td>
-<td style="text-align: right;">6.7879904</td>
-<td style="text-align: right;">21.45852</td>
+<td style="text-align: right;">7.974663</td>
+<td style="text-align: right;">3.307205</td>
+<td style="text-align: right;">2.5534580</td>
+<td style="text-align: right;">15.31436</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">10.900329</td>
-<td style="text-align: right;">4.728088</td>
-<td style="text-align: right;">1.4177318</td>
-<td style="text-align: right;">18.39757</td>
+<td style="text-align: right;">7.781818</td>
+<td style="text-align: right;">4.259350</td>
+<td style="text-align: right;">2.3406561</td>
+<td style="text-align: right;">14.87115</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">12.950566</td>
-<td style="text-align: right;">4.964613</td>
-<td style="text-align: right;">6.1011622</td>
-<td style="text-align: right;">21.32206</td>
+<td style="text-align: right;">12.135713</td>
+<td style="text-align: right;">5.319706</td>
+<td style="text-align: right;">1.7331240</td>
+<td style="text-align: right;">19.69039</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">8.038875</td>
-<td style="text-align: right;">3.083009</td>
-<td style="text-align: right;">4.4352701</td>
-<td style="text-align: right;">14.62479</td>
+<td style="text-align: right;">9.825402</td>
+<td style="text-align: right;">5.487877</td>
+<td style="text-align: right;">1.1443116</td>
+<td style="text-align: right;">18.16272</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">7.416168</td>
-<td style="text-align: right;">5.132512</td>
-<td style="text-align: right;">0.4192201</td>
-<td style="text-align: right;">16.53004</td>
+<td style="text-align: right;">9.977129</td>
+<td style="text-align: right;">3.941479</td>
+<td style="text-align: right;">4.6518956</td>
+<td style="text-align: right;">14.60040</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">9.373454</td>
-<td style="text-align: right;">4.863764</td>
-<td style="text-align: right;">3.2333762</td>
-<td style="text-align: right;">17.81306</td>
+<td style="text-align: right;">12.819841</td>
+<td style="text-align: right;">3.605219</td>
+<td style="text-align: right;">7.3310402</td>
+<td style="text-align: right;">18.92470</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">14.167422</td>
-<td style="text-align: right;">5.940609</td>
-<td style="text-align: right;">6.8018813</td>
-<td style="text-align: right;">22.68893</td>
+<td style="text-align: right;">9.419859</td>
+<td style="text-align: right;">3.559865</td>
+<td style="text-align: right;">3.6327248</td>
+<td style="text-align: right;">15.14616</td>
 </tr>
 </tbody>
 </table>
@@ -1367,4 +1374,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/quarto-dev/quarto-demo/edit/main/Chapter01_Introduction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/quarto-dev/quarto-demo/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

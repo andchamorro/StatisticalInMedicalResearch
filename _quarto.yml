@@ -4,6 +4,7 @@ project:
   
 website:
   title: "Statistical Analysis in Medical Research Using R"
+  reader-mode: true
   sidebar:
     style: floating
     search: true
@@ -15,4 +16,6 @@ website:
         contents:
           - Chapter01_Introduction.qmd
           - Chapter02_BasicProgramming.qmd
+  repo-url: https://github.com/quarto-dev/quarto-demo
+  repo-actions: [edit, issue]
 editor: visual
