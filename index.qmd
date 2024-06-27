@@ -1,0 +1,40 @@
+---
+title: "Statistical Analysis in Medical Research Using R"
+author: "Your Name"
+date: "2024-06-26"
+format: html
+toc: true
+---
+
+# Welcome
+
+Welcome to the **Statistical Analysis in Medical Research Using R** tutorial series. This series is designed to introduce you to the fundamental concepts of statistical analysis using the R programming language, with a focus on applications in medical research.
+
+## Overview
+
+In this series, you will learn how to:
+
+- Understand the importance of statistical analysis in medical research
+- Perform basic data manipulation and visualization in R
+- Apply descriptive and inferential statistics to medical data
+- Interpret the results of statistical analyses in the context of medical research
+
+## Chapters
+
+Below are the chapters included in this series. Each chapter builds on the previous one, so it's recommended to go through them in order.
+
+### [Chapter 01: Introduction](Chapter01_introduction.qmd)
+
+In the first chapter, we provide an overview of the role of statistics in medical research. You will learn about different types of data, common statistical terms, and why statistical analysis is crucial in the medical field.
+
+### [Chapter 02: Basic Programming](Chapter02_BasicProgramming.qmd)
+
+The second chapter introduces you to the basics of programming in R. You will learn how to install R and RStudio, understand R syntax, and perform basic operations and data manipulation. This chapter sets the foundation for more advanced topics covered later in the series.
+
+## Getting Started
+
+To get started, ensure you have R and RStudio installed on your computer. If not, follow the installation instructions provided in Chapter 02.
+
+```{r, echo=FALSE}
+# Sample R code snippet to show in the document
+cat("Welcome to the Statistical Analysis in Medical Research Using R!")

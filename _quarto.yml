@@ -2,4 +2,12 @@ project:
   title: "StatisticalInMedicalResearch"
   type: website
   output-dir: docs
+  
+website:
+  title: "StatisticalInMedicalResearch"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
 editor: visual
