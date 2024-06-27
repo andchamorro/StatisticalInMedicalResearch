@@ -1,7 +1,0 @@
-"","     Age","   Gender"," Ethnicity","    Income","Education_Level"," Occupation","Marital_Status","Household_Size","Residence_Location","Housing_Tenure"
-"","Min.   :21.00  ","Length:100        ","Length:100        ","Min.   :19787  ","Length:100        ","Length:100        ","Length:100        ","Min.   :1.00  ","Length:100        ","Length:100        "
-"","1st Qu.:38.75  ","Class :character  ","Class :character  ","1st Qu.:41248  ","Class :character  ","Class :character  ","Class :character  ","1st Qu.:2.00  ","Class :character  ","Class :character  "
-"","Median :51.00  ","Mode  :character  ","Mode  :character  ","Median :50342  ","Mode  :character  ","Mode  :character  ","Mode  :character  ","Median :3.00  ","Mode  :character  ","Mode  :character  "
-"","Mean   :52.63  ",NA,NA,"Mean   :50920  ",NA,NA,NA,"Mean   :3.37  ",NA,NA
-"","3rd Qu.:67.25  ",NA,NA,"3rd Qu.:61123  ",NA,NA,NA,"3rd Qu.:5.00  ",NA,NA
-"","Max.   :89.00  ",NA,NA,"Max.   :84396  ",NA,NA,NA,"Max.   :6.00  ",NA,NA
