@@ -1,15 +1,9 @@
 project:
-  title: "StatisticalInMedicalResearch"
   type: website
   output-dir: docs
   
 website:
-  title: "StatisticalInMedicalResearch"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+  title: "Statistical Analysis in Medical Research Using R"
   sidebar:
     style: floating
     search: true

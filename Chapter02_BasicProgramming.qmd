@@ -90,7 +90,7 @@ hist(data$Age, main = "Age Distribution", xlab = "Age")
 
 # Save the summary statistics to a CSV file
 # This allows us to easily access and share the summary statistics later
-write.csv(summary_stats, "summary_stats.csv")
+write.csv(summary_stats, "output/summary_stats.csv")
 ```
 
 In this script, I've included comments explaining the purpose of the script, who wrote it, and when it was written. I've also added comments explaining what each section of the code does. While people don't usually comment this thoroughly in real life, the basic idea is sound: your script should explain itself. As expected, R ignores all the commented parts. When we run this script, it announces its behavior, which helps ensure that the output makes sense when the script is executed. The first two lines of the output tell us a lot about what the script is doing behind the scenes. This is usually a good idea, as it helps ensure that the output makes sense when the script is executed.
@@ -148,7 +148,7 @@ A `while` loop repeatedly executes a block of code as long as a specified condit
 
 #### Syntax:
 
-```
+```         
 $ R
 while (condition) {
   # Code to be executed as long as the condition is TRUE
@@ -172,7 +172,7 @@ A `repeat` loop executes an infinite loop unless explicitly stopped using the `b
 
 #### Syntax:
 
-```
+```         
 $ R
 repeat {
   # Code to be executed repeatedly
@@ -273,7 +273,7 @@ The `if` statement allows you to execute a block of code if a condition is true.
 
 #### Syntax:
 
-```
+```         
 $ R
 if (condition) {
   # Code to execute if condition is true
@@ -296,7 +296,7 @@ The `if-else` statement allows you to execute one block of code if a condition i
 
 #### Syntax:
 
-```
+```         
 $ R
 if (condition) {
   # Code to execute if condition is true
@@ -343,7 +343,7 @@ A function in R is a block of code that performs a specific task, which can be r
 
 #### Syntax:
 
-```
+```         
 $ R
 function_name <- function(arg1, arg2, ...) {
   # Code to execute
