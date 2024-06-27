@@ -10,4 +10,15 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+  sidebar:
+    style: floating
+    search: true
+    contents: 
+      - section: "Home"
+        contents:
+          - index.qmd
+      - section: "Introduction"
+        contents:
+          - Chapter01_Introduction.qmd
+          - Chapter02_BasicProgramming.qmd
 editor: visual

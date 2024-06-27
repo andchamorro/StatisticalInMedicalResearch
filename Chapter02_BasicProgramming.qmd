@@ -2,6 +2,7 @@
 title: "Basic programing"
 author: "Andres Chamorro"
 format: html
+toc: true
 ---
 
 This lecture has avoided the term "programming" due to its intimidating connotation. While advanced programming is a specialized skill, the basics are accessible and can achieve impressive results. This chapter introduces basic programming concepts in R, a language you've been using interactively so far.
@@ -48,7 +49,7 @@ print(paste("Mean age: ", mean_age))
 hist(data$Age, main = "Age Distribution", xlab = "Age")
 
 # Save the summary statistics to a CSV file
-write_csv(summary_stats, "summary_stats.csv")
+write.csv(summary_stats, "output/summary_stats.csv")
 ```
 
 Scripts behave similarly to command-line inputs, with a few exceptions. For instance, scripts don't auto-print variables; you must explicitly print them. Also, while `library()` is used to load packages at the command line, scripts conventionally use `require()`, which produces a warning rather than an error if the package doesn't exist.
@@ -89,7 +90,7 @@ hist(data$Age, main = "Age Distribution", xlab = "Age")
 
 # Save the summary statistics to a CSV file
 # This allows us to easily access and share the summary statistics later
-write_csv(summary_stats, "summary_stats.csv")
+write.csv(summary_stats, "summary_stats.csv")
 ```
 
 In this script, I've included comments explaining the purpose of the script, who wrote it, and when it was written. I've also added comments explaining what each section of the code does. While people don't usually comment this thoroughly in real life, the basic idea is sound: your script should explain itself. As expected, R ignores all the commented parts. When we run this script, it announces its behavior, which helps ensure that the output makes sense when the script is executed. The first two lines of the output tell us a lot about what the script is doing behind the scenes. This is usually a good idea, as it helps ensure that the output makes sense when the script is executed.
@@ -125,7 +126,8 @@ A `for` loop is used to iterate over a sequence (such as a vector, list, or any 
 
 #### Syntax:
 
-```{r}
+```         
+$ R
 for (variable in sequence) {
   # Code to be executed for each element
 }
@@ -146,7 +148,8 @@ A `while` loop repeatedly executes a block of code as long as a specified condit
 
 #### Syntax:
 
-```{r}
+```
+$ R
 while (condition) {
   # Code to be executed as long as the condition is TRUE
 }
@@ -169,7 +172,8 @@ A `repeat` loop executes an infinite loop unless explicitly stopped using the `b
 
 #### Syntax:
 
-```{r}
+```
+$ R
 repeat {
   # Code to be executed repeatedly
   if (condition) {
@@ -269,7 +273,8 @@ The `if` statement allows you to execute a block of code if a condition is true.
 
 #### Syntax:
 
-```{r}
+```
+$ R
 if (condition) {
   # Code to execute if condition is true
 }
@@ -291,7 +296,8 @@ The `if-else` statement allows you to execute one block of code if a condition i
 
 #### Syntax:
 
-```{r}
+```
+$ R
 if (condition) {
   # Code to execute if condition is true
 } else {
@@ -337,7 +343,8 @@ A function in R is a block of code that performs a specific task, which can be r
 
 #### Syntax:
 
-```{r}
+```
+$ R
 function_name <- function(arg1, arg2, ...) {
   # Code to execute
   return(result)
@@ -389,16 +396,18 @@ print(nucleotide_counts)  # Output: A C G T
 Translating DNA to protein is crucial for understanding gene expression and function. This function helps in converting nucleotide sequences into their corresponding amino acid sequences, aiding in protein analysis.
 
 ```{r}
+# Load necessary library
+# To install package, enter in console"
+# if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("Biostrings")
+library(Biostrings)
+
 # Function to translate DNA sequence to protein sequence
 translate_dna <- function(dna_sequence) {
-  codon_table <- c("ATA" = "I", "ATC" = "I", "ATT" = "I", "ATG" = "M",
-                   "ACA" = "T", "ACC" = "T", "ACG" = "T", "ACT" = "T",
-                   # ... (complete the codon table)
-                   "TAA" = "*", "TAG" = "*", "TGA" = "*")
-
   protein_sequence <- sapply(seq(1, nchar(dna_sequence) - 2, by = 3), function(i) {
     codon <- substr(dna_sequence, i, i + 2)
-    return(codon_table[[codon]])
+    return(GENETIC_CODE[[codon]])
   })
 
   return(paste(protein_sequence, collapse = ""))
@@ -407,10 +416,36 @@ translate_dna <- function(dna_sequence) {
 # Test the function
 dna <- "ATGGTCTAACGTA"
 protein <- translate_dna(dna)
-print(protein)  # Output: "MVT*"
+print(protein)  # Output: "MV*R"
 ```
 
-#### 3. **Gene Expression Analysis**
+#### 3. **Sequence Alignment**
+
+##### Example: Function to Perform Global Alignment
+
+Sequence alignment is a core bioinformatics task used to find similarities between sequences, which can indicate functional, structural, or evolutionary relationships. The `pairwiseAlignment` function from the Biostrings package in Bioconductor provides a robust way to perform sequence alignments.
+
+```{r}
+# Load necessary library
+# To install package, enter in console"
+# if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("pwalign")
+library(pwalign)
+# Function to perform global alignment between two sequences
+global_alignment <- function(seq1, seq2) {
+  alignment <- pairwiseAlignment(seq1, seq2, type = "global")
+  return(alignment)
+}
+
+# Test the function
+seq1 <- DNAString("ATGCTAGCTAG")
+seq2 <- DNAString("ATGCTAGGCTA")
+alignment_result <- global_alignment(seq1, seq2)
+print(alignment_result)
+```
+
+#### 4. **Gene Expression Analysis**
 
 ##### Example: Function to Normalize Gene Expression Data
 
@@ -427,29 +462,6 @@ normalize_expression <- function(expression_data) {
 expression_data <- c(100, 200, 300, 400, 500)
 normalized_data <- normalize_expression(expression_data)
 print(normalized_data)  # Output: 6.658211 7.643856 8.228819 8.643856 8.965784
-```
-
-#### 4. **Sequence Alignment**
-
-##### Example: Function to Perform Global Alignment
-
-Sequence alignment is a core bioinformatics task used to find similarities between sequences, which can indicate functional, structural, or evolutionary relationships. The `pairwiseAlignment` function from the Biostrings package in Bioconductor provides a robust way to perform sequence alignments.
-
-```{r}
-# Load necessary library
-library(Biostrings)
-
-# Function to perform global alignment between two sequences
-global_alignment <- function(seq1, seq2) {
-  alignment <- pairwiseAlignment(seq1, seq2, type = "global")
-  return(alignment)
-}
-
-# Test the function
-seq1 <- DNAString("ATGCTAGCTAG")
-seq2 <- DNAString("ATGCTAGGCTA")
-alignment_result <- global_alignment(seq1, seq2)
-print(alignment_result)
 ```
 
 ## Exercises
@@ -485,6 +497,7 @@ Analyze the protein abundance data from different samples and calculate descript
 ```{r}
 # Create the data frame with protein abundance data
 protein_data <- data.frame(
+  dummy = double()
   # Code here
 )
 

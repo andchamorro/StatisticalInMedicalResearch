@@ -2,6 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+.draft
 renv/*
 !renv/activate.R
 /.quarto/
+output/*

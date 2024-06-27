@@ -78,6 +78,7 @@ div.csl-indent {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -93,11 +94,11 @@ div.csl-indent {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -123,18 +124,110 @@ div.csl-indent {
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">StatisticalInMedicalResearch</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="dropdown-header">
+ <span class="menu-text">about.qmd</span></li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Chapter01_Introduction.html">Introduction</a></li><li class="breadcrumb-item"><a href="./Chapter01_Introduction.html">R Basics</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Home</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Analysis in Medical Research Using R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter01_Introduction.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter02_BasicProgramming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic programing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Chapter01_Introduction.html">Introduction</a></li><li class="breadcrumb-item"><a href="./Chapter01_Introduction.html">R Basics</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">R Basics</h1>
 </div>
@@ -348,7 +441,7 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -19.95832 210.94027</code></pre>
+<pre><code>[1] -13.11811 207.98164</code></pre>
 </div>
 </div>
 </section>
@@ -358,7 +451,7 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1231.083</code></pre>
+<pre><code>[1] 1204.353</code></pre>
 </div>
 </div>
 </section>
@@ -368,14 +461,14 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 35.08679</code></pre>
+<pre><code>[1] 34.70379</code></pre>
 </div>
 </div>
 <p>Remember that the standard deviation is just the square root of the variance, see:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(sample_numbers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 35.08679</code></pre>
+<pre><code>[1] 34.70379</code></pre>
 </div>
 </div>
 </section>
@@ -386,7 +479,7 @@ Type 'q()' to quit R.
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 100149.8</code></pre>
+<pre><code>[1] 101290.2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -394,27 +487,27 @@ Type 'q()' to quit R.
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 100.1498</code></pre>
+<pre><code>[1] 101.2902</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 98.73452</code></pre>
+<pre><code>[1] 101.7308</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 68.33856</code></pre>
+<pre><code>[1] 124.0364</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]   5.996308 243.420367</code></pre>
+<pre><code>[1] -35.83676 215.08104</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1123.757</code></pre>
+<pre><code>[1] 1285.94</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 33.52248</code></pre>
+<pre><code>[1] 35.86</code></pre>
 </div>
 </div>
 </section>
@@ -433,15 +526,15 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"A"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.58511</code></pre>
+<pre><code>[1] 10.06038</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"B"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.018306</code></pre>
+<pre><code>[1] 8.991582</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"C"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.29478</code></pre>
+<pre><code>[1] 13.13027</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and then keep going</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -472,16 +565,16 @@ Attaching package: 'dplyr'</code></pre>
 <pre><code># A tibble: 10 × 2
    conditions means
    &lt;chr&gt;      &lt;dbl&gt;
- 1 A          10.6 
- 2 B           8.02
- 3 C          10.3 
- 4 D           8.69
- 5 E           9.51
- 6 F          11.1 
- 7 G           9.51
- 8 H           9.57
- 9 I          11.3 
-10 J          12.0 </code></pre>
+ 1 A          10.1 
+ 2 B           8.99
+ 3 C          13.1 
+ 4 D          12.3 
+ 5 E          11.1 
+ 6 F          13.1 
+ 7 G          11.2 
+ 8 H          11.9 
+ 9 I           9.71
+10 J           8.66</code></pre>
 </div>
 </div>
 <p>A few points require further consideration. Firstly, the printout of this was of an inferior quality. A solution to this issue is to create a new variable containing the results of the code and then use the <code>knitr::kable</code> function to print the variable in a more aesthetically pleasing manner when the document is compiled.</p>
@@ -502,43 +595,43 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">10.585114</td>
+<td style="text-align: right;">10.060376</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">8.018306</td>
+<td style="text-align: right;">8.991582</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">10.294783</td>
+<td style="text-align: right;">13.130268</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">8.687497</td>
+<td style="text-align: right;">12.272987</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">9.506123</td>
+<td style="text-align: right;">11.145831</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">11.071491</td>
+<td style="text-align: right;">13.086234</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">9.512394</td>
+<td style="text-align: right;">11.192485</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">9.571136</td>
+<td style="text-align: right;">11.875310</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">11.284107</td>
+<td style="text-align: right;">9.707156</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">12.012939</td>
+<td style="text-align: right;">8.656154</td>
 </tr>
 </tbody>
 </table>
@@ -567,53 +660,53 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">10.585114</td>
-<td style="text-align: right;">5.679876</td>
+<td style="text-align: right;">10.060376</td>
+<td style="text-align: right;">5.613561</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">8.018306</td>
-<td style="text-align: right;">4.137335</td>
+<td style="text-align: right;">8.991582</td>
+<td style="text-align: right;">3.805519</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">10.294783</td>
-<td style="text-align: right;">5.358272</td>
+<td style="text-align: right;">13.130268</td>
+<td style="text-align: right;">3.771427</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">8.687497</td>
-<td style="text-align: right;">4.638121</td>
+<td style="text-align: right;">12.272987</td>
+<td style="text-align: right;">4.064571</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">9.506123</td>
-<td style="text-align: right;">3.122304</td>
+<td style="text-align: right;">11.145831</td>
+<td style="text-align: right;">6.300592</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">11.071491</td>
-<td style="text-align: right;">5.047547</td>
+<td style="text-align: right;">13.086234</td>
+<td style="text-align: right;">2.811480</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">9.512394</td>
-<td style="text-align: right;">4.854704</td>
+<td style="text-align: right;">11.192485</td>
+<td style="text-align: right;">5.342715</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">9.571136</td>
-<td style="text-align: right;">6.591424</td>
+<td style="text-align: right;">11.875310</td>
+<td style="text-align: right;">3.098778</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">11.284107</td>
-<td style="text-align: right;">5.762363</td>
+<td style="text-align: right;">9.707156</td>
+<td style="text-align: right;">3.186192</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">12.012939</td>
-<td style="text-align: right;">5.145721</td>
+<td style="text-align: right;">8.656154</td>
+<td style="text-align: right;">4.386394</td>
 </tr>
 </tbody>
 </table>
@@ -643,73 +736,73 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">10.585114</td>
-<td style="text-align: right;">5.679876</td>
-<td style="text-align: right;">3.6182982</td>
-<td style="text-align: right;">20.44245</td>
+<td style="text-align: right;">10.060376</td>
+<td style="text-align: right;">5.613561</td>
+<td style="text-align: right;">1.5143509</td>
+<td style="text-align: right;">17.41725</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">8.018306</td>
-<td style="text-align: right;">4.137335</td>
-<td style="text-align: right;">0.4974302</td>
-<td style="text-align: right;">12.28050</td>
+<td style="text-align: right;">8.991582</td>
+<td style="text-align: right;">3.805519</td>
+<td style="text-align: right;">-0.6821059</td>
+<td style="text-align: right;">12.46669</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">10.294783</td>
-<td style="text-align: right;">5.358272</td>
-<td style="text-align: right;">2.5335906</td>
-<td style="text-align: right;">15.91243</td>
+<td style="text-align: right;">13.130268</td>
+<td style="text-align: right;">3.771427</td>
+<td style="text-align: right;">7.8821912</td>
+<td style="text-align: right;">17.17549</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">8.687497</td>
-<td style="text-align: right;">4.638121</td>
-<td style="text-align: right;">0.0110298</td>
-<td style="text-align: right;">15.25871</td>
+<td style="text-align: right;">12.272987</td>
+<td style="text-align: right;">4.064571</td>
+<td style="text-align: right;">3.6574791</td>
+<td style="text-align: right;">16.72100</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">9.506123</td>
-<td style="text-align: right;">3.122304</td>
-<td style="text-align: right;">5.3783867</td>
-<td style="text-align: right;">15.37293</td>
+<td style="text-align: right;">11.145831</td>
+<td style="text-align: right;">6.300592</td>
+<td style="text-align: right;">1.9893995</td>
+<td style="text-align: right;">24.18423</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">11.071491</td>
-<td style="text-align: right;">5.047547</td>
-<td style="text-align: right;">0.1306032</td>
-<td style="text-align: right;">18.75173</td>
+<td style="text-align: right;">13.086234</td>
+<td style="text-align: right;">2.811480</td>
+<td style="text-align: right;">8.3961070</td>
+<td style="text-align: right;">16.54842</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">9.512394</td>
-<td style="text-align: right;">4.854704</td>
-<td style="text-align: right;">3.1293046</td>
-<td style="text-align: right;">17.04708</td>
+<td style="text-align: right;">11.192485</td>
+<td style="text-align: right;">5.342715</td>
+<td style="text-align: right;">2.0922816</td>
+<td style="text-align: right;">18.16476</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">9.571136</td>
-<td style="text-align: right;">6.591424</td>
-<td style="text-align: right;">-1.0027310</td>
-<td style="text-align: right;">19.54346</td>
+<td style="text-align: right;">11.875310</td>
+<td style="text-align: right;">3.098778</td>
+<td style="text-align: right;">7.1767143</td>
+<td style="text-align: right;">17.27301</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">11.284107</td>
-<td style="text-align: right;">5.762363</td>
-<td style="text-align: right;">3.4570481</td>
-<td style="text-align: right;">18.97414</td>
+<td style="text-align: right;">9.707156</td>
+<td style="text-align: right;">3.186192</td>
+<td style="text-align: right;">5.8033524</td>
+<td style="text-align: right;">17.67573</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">12.012939</td>
-<td style="text-align: right;">5.145721</td>
-<td style="text-align: right;">5.6354111</td>
-<td style="text-align: right;">20.06696</td>
+<td style="text-align: right;">8.656154</td>
+<td style="text-align: right;">4.386394</td>
+<td style="text-align: right;">2.0898466</td>
+<td style="text-align: right;">15.28205</td>
 </tr>
 </tbody>
 </table>

@@ -1,6 +1,6 @@
 ---
 title: "Statistical Analysis in Medical Research Using R"
-author: "Your Name"
+author: "Andres Chamorro"
 date: "2024-06-26"
 format: html
 toc: true
@@ -23,7 +23,7 @@ In this series, you will learn how to:
 
 Below are the chapters included in this series. Each chapter builds on the previous one, so it's recommended to go through them in order.
 
-### [Chapter 01: Introduction](Chapter01_introduction.qmd)
+### [Chapter 01: Introduction](Chapter01_Introduction.qmd)
 
 In the first chapter, we provide an overview of the role of statistics in medical research. You will learn about different types of data, common statistical terms, and why statistical analysis is crucial in the medical field.
 
