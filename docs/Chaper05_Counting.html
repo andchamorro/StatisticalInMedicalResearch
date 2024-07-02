@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistical Analysis in Medical Research Using R - Counting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Statistical Analysis in Medical Research Using R
+      </li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistical Analysis in Medical Research Using R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Home</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Analysis in Medical Research Using R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter01_Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter02_BasicProgramming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic programing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Counting</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="alignment-and-mapping-algorithms" class="level1">
+<h1>Alignment and Mapping Algorithms</h1>
+<p>Alignment and mapping algorithms are crucial in bioinformatics for sequence alignment and genome assembly. Here are some of the most commonly used algorithms:</p>
+<section id="smith-waterman-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="smith-waterman-algorithm">1. Smith-Waterman Algorithm</h2>
+<p>The <strong>Smith-Waterman algorithm</strong><span class="citation" data-cites="smith1981">(<a href="#ref-smith1981" role="doc-biblioref">Smith 1981</a>)</span> is a classic dynamic programming algorithm used for local sequence alignment. It identifies similar regions between two strings or nucleotide or protein sequences.</p>
+</section>
+<section id="needleman-wunsch-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="needleman-wunsch-algorithm">2. Needleman-Wunsch Algorithm</h2>
+<p>The <strong>Needleman-Wunsch algorithm</strong><span class="citation" data-cites="needleman1970">(<a href="#ref-needleman1970" role="doc-biblioref">Needleman 1970</a>)</span> is also a dynamic programming algorithm, but it’s used for global sequence alignment. It finds the best alignment (including gaps) between two sequences.</p>
+</section>
+<section id="burrows-wheeler-transform-bwt" class="level2">
+<h2 class="anchored" data-anchor-id="burrows-wheeler-transform-bwt">3. Burrows-Wheeler Transform (BWT)</h2>
+<p>The <strong>Burrows-Wheeler Transform (BWT)</strong><span class="citation" data-cites="burrows1994">(<a href="#ref-burrows1994" role="doc-biblioref">Burrows 1994</a>)</span> is an algorithm that is used in data compression, notably in bzip2 and the sequence aligner Bowtie. It transforms a string into a more compressible format, which is useful for both data compression and bioinformatics.</p>
+</section>
+<section id="blast-basic-local-alignment-search-tool" class="level2">
+<h2 class="anchored" data-anchor-id="blast-basic-local-alignment-search-tool">4. BLAST (Basic Local Alignment Search Tool)</h2>
+<p><strong>BLAST</strong><span class="citation" data-cites="altschul1990">(<a href="#ref-altschul1990" role="doc-biblioref">Altschul 1990</a>)</span> is an algorithm for comparing primary biological sequence information, such as the amino-acid sequences of proteins or the nucleotides of DNA and/or RNA sequences. It’s a very fast sequence alignment algorithm primarily used to search sequence databases for optimal local alignments to a query.</p>
+</section>
+</section>
+<section id="microarray-and-rna-sequencing" class="level1">
+<h1>Microarray and RNA Sequencing</h1>
+<p>Microarrays and RNA sequencing are two main technologies used for gene expression profiling. They have different methodologies and applications, especially in gene differential analysis.</p>
+<section id="microarray" class="level2">
+<h2 class="anchored" data-anchor-id="microarray">Microarray</h2>
+<p>Microarrays are a well-established technology that allows for the measurement of expression levels of thousands of genes simultaneously <span class="citation" data-cites="schena1995">(<a href="#ref-schena1995" role="doc-biblioref">Schena 1995</a>)</span>. They use probes that hybridize to specific target sequences present in the sample. The intensity of the signal from each spot on the array corresponds to the quantity of the target sequence in the sample.</p>
+</section>
+<section id="rna-sequencing" class="level2">
+<h2 class="anchored" data-anchor-id="rna-sequencing">RNA Sequencing</h2>
+<p>RNA sequencing (RNA-Seq) is a more recent technology that provides a far more precise measurement of levels of transcripts and their isoforms <span class="citation" data-cites="wang2009">(<a href="#ref-wang2009" role="doc-biblioref">Wang 2009</a>)</span>. Unlike microarrays, RNA-Seq does not require prior knowledge of the sequences and can therefore be used to discover novel transcripts.</p>
+</section>
+<section id="differences" class="level2">
+<h2 class="anchored" data-anchor-id="differences">Differences</h2>
+<p>The main differences between microarrays and RNA-Seq include:</p>
+<ol type="1">
+<li><strong>Resolution</strong>: RNA-Seq has a higher resolution than microarrays. It can detect low abundance transcripts, alternative splicing, and mutations <span class="citation" data-cites="wang2009">(<a href="#ref-wang2009" role="doc-biblioref">Wang 2009</a>)</span>.</li>
+<li><strong>Dynamic Range</strong>: RNA-Seq has a larger dynamic range than microarrays, allowing for the detection of more differentially expressed genes with higher fold change <span class="citation" data-cites="marioni2008">(<a href="#ref-marioni2008" role="doc-biblioref">Marioni 2008</a>)</span>.</li>
+<li><strong>Cost</strong>: Microarrays are generally less expensive than RNA-Seq.</li>
+</ol>
+</section>
+<section id="application-on-gene-differential-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="application-on-gene-differential-analysis">Application on Gene Differential Analysis</h2>
+<p>Both microarrays and RNA-Seq can be used for gene differential analysis, which involves finding differences in gene expression between different groups of samples. RNA-Seq is often preferred for this application due to its higher resolution and larger dynamic range <span class="citation" data-cites="marioni2008">(<a href="#ref-marioni2008" role="doc-biblioref">Marioni 2008</a>)</span>.</p>
+</section>
+</section>
+<section id="basic-statistical-skills-for-differential-expression-analysis" class="level1">
+<h1>Basic Statistical Skills for Differential Expression Analysis</h1>
+<p>Differential expression analysis involves comparing the expression levels of genes across different conditions. This process requires a understanding of various statistical concepts and methods. Here are some of the key statistical skills needed:</p>
+<section id="hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing">1. Hypothesis Testing</h2>
+<p>Hypothesis testing is a statistical method used to make inferences or draw conclusions about a population based on a sample of data. In the context of differential expression analysis, hypothesis testing is used to determine whether the difference in gene expression between two conditions is statistically significant <span class="citation" data-cites="lehmann2006">(<a href="#ref-lehmann2006" role="doc-biblioref">Lehmann 2006</a>)</span>.</p>
+</section>
+<section id="multiple-testing-correction" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-testing-correction">2. Multiple Testing Correction</h2>
+<p>When performing multiple hypothesis tests, the chance of obtaining false positives increases. Multiple testing correction techniques, such as the Bonferroni correction or the Benjamini-Hochberg procedure, are used to control the false positive rate <span class="citation" data-cites="benjamini1995">(<a href="#ref-benjamini1995" role="doc-biblioref">Benjamini 1995</a>)</span>.</p>
+</section>
+<section id="regression-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="regression-analysis">3. Regression Analysis</h2>
+<p>Regression analysis is used to model the relationship between a dependent variable (gene expression level) and one or more independent variables (experimental conditions). Linear regression and logistic regression are commonly used methods in differential expression analysis <span class="citation" data-cites="draper2014">(<a href="#ref-draper2014" role="doc-biblioref">Draper 2014</a>)</span>.</p>
+</section>
+<section id="bayesian-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-statistics">4. Bayesian Statistics</h2>
+<p>Bayesian statistics is a statistical paradigm that deals with the updating of probabilities based on observed data. Bayesian methods, such as Bayesian hierarchical models, are increasingly being used in differential expression analysis to share information across genes <span class="citation" data-cites="kruschke2015">(<a href="#ref-kruschke2015" role="doc-biblioref">Kruschke 2015</a>)</span>.</p>
+</section>
+</section>
+<section id="counting" class="level1">
+<h1>Counting</h1>
+<p>This material has been developed utilizing the following sources: <a href="http://www.statsci.org/smyth/pubs/QLedgeRPreprint.pdf">QLedgeRPreprint</a> <span class="citation" data-cites="Lun2016">(<a href="#ref-Lun2016" role="doc-biblioref">Lun, Chen, and Smyth 2016</a>)</span> and <a href="http://bioinf.wehi.edu.au/RNAseqCaseStudy/">RNAseqCaseStudy</a>.</p>
+<p>The package we’ll be using is <strong>Rsubread</strong>. This is a software package for the R programming language that provides a number of utilities for analyzing RNA-Seq data, including read alignment (mapping), read counting, and differential expression analysis.</p>
+<p>The data files needed for this exercise include: - Mouse chromosome 1 Rsubread index files (approximately 400MB in size) - A file named <code>Targets2.txt</code> - The 12 <code>fastq.gz</code> files for the mouse dataset</p>
+<p>The GEO entry for the dataset can be found <a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60450">here</a>.</p>
+<p>The raw reads were downloaded from SRA from the link given in GEO for the dataset. These files are in .sra format. The sra toolkit from NCBI was used to convert the .sra files to .fastq files using the <code>fastq-dump</code> command.</p>
+<section id="downloading-genome-files" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-genome-files">Downloading Genome Files</h2>
+<p>We have provided the index files for chromosome 1 for the mouse genome build mm10 for this lecture in order to save time on building the index. However, full genome fasta files for a number of different genomes are available to download from the UCSC genome browser, see <a href="http://hgdownload.soe.ucsc.edu/downloads.html">here</a>; from NCBI: <a href="http://www.ncbi.nlm.nih.gov/genome">here</a>; or from ENSEMBL: <a href="http://asia.ensembl.org/info/data/ftp/index.html">here</a>.</p>
+</section>
+<section id="introduction-and-data-import" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-and-data-import">Introduction and Data Import</h2>
+<p>For the purpose of this lecture, we are going to be working with a small part of the mouse reference genome (chromosome 1) to show how to do read alignment and counting using R. Mapping reads to the genome is a very important step, and many different mappers/aligners are available, such as bowtie <span class="citation" data-cites="Langmead2012">(<a href="#ref-Langmead2012" role="doc-biblioref">Langmead and Salzberg 2012</a>)</span>, topHat <span class="citation" data-cites="trapnell2009tophat">(<a href="#ref-trapnell2009tophat" role="doc-biblioref">Trapnell, Pachter, and Salzberg 2009</a>)</span>, STAR <span class="citation" data-cites="Dobin2013">(<a href="#ref-Dobin2013" role="doc-biblioref">Dobin et al. 2013</a>)</span> and Rsubread <span class="citation" data-cites="liao2013subread">(<a href="#ref-liao2013subread" role="doc-biblioref">Liao, Smyth, and Shi 2013</a>)</span>. Rsubread is the only mappers/aligner that can run in R. Most alignment tools are run in a linux environment, and they are very computationally intensive. Most mapping tasks require larger computers than an average laptop, so usually read mapping is done on a server in a linux-like environment. Here we are only going to be mapping 1000 reads from each sample from our mouse lactation dataset <span class="citation" data-cites="Fu2015">(<a href="#ref-Fu2015" role="doc-biblioref">Fu et al. 2015</a>)</span>, and we will only be mapping to chromosome 1.</p>
+<p>First, let’s load the Rsubread package into R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># To install package, enter in console"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!require("BiocManager", quietly = TRUE))</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#    install.packages("BiocManager")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("Biostrings")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rsubread)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Earlier we put all the sequencing read data (.fastq.gz files) in the data directory. Now we need to find them in order to tell the Rsubread aligner which files to look at. We can search for all .fastq.gz files in the data directory using the <code>list.files</code> command. The pattern argument takes a regular expression. In this case we are using the <code>$</code> to mean the end of the string, so we will only get files that end in “.fastq.gz”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fastq.files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"./data"</span>, <span class="at">pattern =</span> <span class="st">".fastq.gz$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fastq.files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="alignment-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="alignment-with-r">Alignment with R</h2>
+<section id="build-the-index" class="level3">
+<h3 class="anchored" data-anchor-id="build-the-index">Build the Index</h3>
+<p>Read sequences are stored in compressed (gzipped) FASTQ files. Before the differential expression analysis can proceed, these reads must be aligned to the mouse genome and counted into annotated genes. This can be achieved with functions in the Rsubread package.</p>
+<p>The first step in performing the alignment is to build an index. In order to build an index you need to have the fasta file (.fa), which can be downloaded from the UCSC genome browser. Here we are building the index just for chromosome 1. This may take several minutes to run. Building the full index using the whole mouse genome usually takes about 30 minutes to an hr on a server. <em>We won’t be building the index in the lecture due to time constraints, we have provided the index files for you</em>. The command below assumes the chr1 genome information for mm10 is stored in the “chr1.fa” file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We have provided the index files. You do not need to run command below.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># buildindex(basename="data/chr1_mm10", reference="chr1.fa")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above command will generate the index files in the working directory. In this example, the prefix for the index files is chr1_mm10. You can see the additional files generated using the <code>list.files</code> command, which will list every file in your current working directory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aligning-reads-to-chromosome-1-of-reference-genome" class="level3">
+<h3 class="anchored" data-anchor-id="aligning-reads-to-chromosome-1-of-reference-genome">Aligning Reads to Chromosome 1 of Reference Genome</h3>
+<p>Now that we have generated our index, we can align our reads using the <code>align</code> command. There are often numerous mapping parameters that we can specify, but usually the default mapping parameters for the <code>align</code> function are fine. If we had paired end data, we would specify the second read file/s using the <code>readfile2</code> argument. Our mouse data comprises 100bp single end reads.</p>
+<p>We can specify the output files, or we can let <code>Rsubread</code> choose the output file names for us. The default output file name is the filename with “.subread.BAM” added at the end.</p>
+<p>Now we can align our 12 fastq.gz files using the <code>align</code> command.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">align</span>(<span class="at">index=</span><span class="st">"data/chr1_mm10"</span>, <span class="at">readfile1 =</span> fastq.files)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will align each of the 12 samples one after the other. As we’re only using a subset of 1000 reads per sample, aligning should just take a minute or so for each sample. To run the full samples from this dataset would take several hours per sample. The BAM files are saved in the working directory.</p>
+<p>To see how many parameters you can change try the <code>args</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(align)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this example we have kept many of the default settings, which have been optimised to work well under a variety of situations. The default setting for <code>align</code> is that it only keeps reads that uniquely map to the reference genome. For testing differential expression of genes, this is what we want, as the reads are unambigously assigned to one place in the genome, allowing for easier interpretation of the results. Understanding all the different parameters you can change involves doing a lot of reading about the aligner that you are using, and can take a lot of time to understand! Today we won’t be going into the details of the parameters you can change, but you can get more information from looking at the help:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?align</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can get a summary of the proportion of reads that mapped to the reference genome using the <code>propmapped</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bam.files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"./data"</span>, <span class="at">pattern =</span> <span class="st">".BAM$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>bam.files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>props <span class="ot">&lt;-</span> <span class="fu">propmapped</span>(<span class="at">files=</span>bam.files)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>props</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
+<section id="objetive" class="level4">
+<h4 class="anchored" data-anchor-id="objetive">Objetive</h4>
+<p>The objective of this exercise is to explore the impact of alignment parameters on the mapping of sequencing reads. Specifically, we aim to:</p>
+<ol type="1">
+<li><p><strong>Investigate the effect of allowing multi-mapping reads</strong>: By setting <code>unique = FALSE</code>, we allow reads that map to multiple locations in the genome. This can be particularly useful for understanding the behavior of repetitive sequences or regions of high sequence similarity.</p></li>
+<li><p><strong>Examine the influence of reporting multiple “best” locations</strong>: By setting <code>nBestLocations = 6</code>, we allow up to six of the best matching locations for each read to be reported. This can provide a more comprehensive view of potential mapping locations for each read.</p></li>
+<li><p>Try aligning the fastq files allowing multi-mapping reads (set <code>unique = FALSE</code>), and allowing for up to 6 “best” locations to be reported (<code>nBestLocations = 6</code>). Specify the output file names (bam.files.multi) by substituting “.fastq.gz” with “.multi.bam” so we don’t overwrite our unique alignment bam files.</p></li>
+<li><p>Look at the proportion of reads mapped and see if we get any more reads mapping by specifying a less stringent criteria.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="quality-control" class="level2">
+<h2 class="anchored" data-anchor-id="quality-control">Quality Control</h2>
+<p>Quality control (QC) is a critical step in the RNA sequencing workflow. It involves assessing the quality of the raw sequencing data, which are typically stored in FASTQ files. Each FASTQ file contains a list of reads along with their corresponding quality scores. These scores indicate the confidence of each base call. Low-quality reads, adapter sequences, and contaminants can be identified at this stage and filtered out before downstream analysis. It’s important to note that QC should be an iterative process, performed before and after each major step in the RNA-Seq data analysis pipeline.</p>
+<p>We can have a look at the quality scores associated with each base that has been called by the sequencing machine using the <code>qualityScores</code> function in <em>Rsubread</em>.</p>
+<p>Let’s first extract quality scores for 100 reads for the file “SRR1552450.fastq.gz”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract quality scores</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>qs <span class="ot">&lt;-</span> <span class="fu">qualityScores</span>(<span class="at">filename=</span><span class="st">"data/SRR1552450.fastq.gz"</span>,<span class="at">nreads=</span><span class="dv">100</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check dimension of qs</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(qs)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check first few elements of qs with head</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(qs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A quality score of 30 corresponds to a 1 in 1000 chance of an incorrect base call. (A quality score of 10 is a 1 in 10 chance of an incorrect base call.) To look at the overall distribution of quality scores across the 100 reads, we can look at a boxplot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(qs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<ol type="1">
+<li>Extract quality scores for SRR1552451.fastq.gz for 50 reads.</li>
+<li>Plot a boxplot of the quality scores for SRR1552451.fastq.gz.”</li>
+</ol>
+</section>
+</section>
+<section id="counting-1" class="level2">
+<h2 class="anchored" data-anchor-id="counting-1">Counting</h2>
+<p>Once we have determined where each read originates in the genome, we need to summarize this information across genes or exons. The alignment process generates a set of BAM files, with each file containing the read alignments for each library. In the BAM file, there is a chromosomal location for every read that mapped uniquely. The mapped reads can be counted across mouse genes using the <code>featureCounts</code> function. <code>featureCounts</code> contains built-in annotation for mouse (mm9, mm10) and human (hg19) genome assemblies (NCBI refseq annotation) <span class="citation" data-cites="Liao2014">(<a href="#ref-Liao2014" role="doc-biblioref">Liao, Smyth, and Shi 2014</a>)</span>.</p>
+<p>The code below uses the exon intervals defined in the NCBI refseq annotation of the mm10 genome. Reads that map to exons of genes are added together to obtain the count for each gene, with some care taken with reads that span exon-exon boundaries. <code>featureCounts</code> takes all the BAM files as input, and outputs an object which includes the count matrix. Each sample is a separate column, each row is a gene.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fc <span class="ot">&lt;-</span> <span class="fu">featureCounts</span>(bam.files, <span class="at">annot.inbuilt=</span><span class="st">"mm10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>names()</code> function in R is a built-in function that gets or sets the names of an object. In R, many types of objects can have names, including vectors, lists, data frames, and more.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The statistics of the read mapping can be seen with <code>fc$stats</code>. This reports the numbers of unassigned reads and the reasons why they are not assigned (eg. ambiguity, multi-mapping, secondary alignment, mapping quality, fragment length, chimera, read duplicate, non-junction and so on), in addition to the number of successfully assigned reads for each library. See <a href="http://bioinf.wehi.edu.au/subread-package/SubreadUsersGuide.pdf">subread documentation</a> (‘Program output’ section). (We know the real reason why the majority of the reads aren’t mapping - they’re not from chr 1!)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Take a look at the feature counts stats</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fc<span class="sc">$</span>stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The counts for the samples are stored in <code>fc$counts</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Take a look at the dimensions to see the number of genes</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(fc<span class="sc">$</span>counts)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Take a look at the first lines</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fc<span class="sc">$</span>counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The row names of the <code>fc$counts</code> matrix represent the Entrez gene identifiers<span class="citation" data-cites="maglott2007">(<a href="#ref-maglott2007" role="doc-biblioref">Maglott et al. 2007</a>)</span> for each gene and the column names are the output filenames from calling the <code>align</code> function. The <code>annotation</code> slot shows the annotation information that <code>featureCounts</code> used to summarise reads over genes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fc<span class="sc">$</span>annotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-2" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2">Exercise</h4>
+<ol type="1">
+<li>Redo the counting over the exons, rather than the genes (specify <code>useMetaFeatures = FALSE</code>). Use the bam files generated doing alignment reporting only unique reads, and call the <code>featureCounts</code> object <code>fc.exon</code>. Check the dimension of the counts slot to see how much larger it is.</li>
+<li>Using your “.multi.bam” files, redo the counting over genes, allowing for multimapping reads (specify <code>countMultiMappingReads = TRUE</code>), calling the object <code>fc.multi</code>. Check the stats.</li>
+</ol>
+
+
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-altschul1990" class="csl-entry" role="listitem">
+Altschul, Gish, S. F. 1990. <span>“Basic Local Alignment Search Tool.”</span> <em>Journal of Molecular Biology</em> 215: 403–10.
+</div>
+<div id="ref-benjamini1995" class="csl-entry" role="listitem">
+Benjamini, Hochberg, Y. 1995. <span>“Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing.”</span> <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 57: 289–300.
+</div>
+<div id="ref-burrows1994" class="csl-entry" role="listitem">
+Burrows, Wheeler, M. 1994. <span>“A Block-Sorting Lossless Data Compression Algorithm.”</span> Digital Equipment Corporation.
+</div>
+<div id="ref-Dobin2013" class="csl-entry" role="listitem">
+Dobin, Alexander, Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski, Sonali Jha, Philippe Batut, Mark Chaisson, and Thomas R Gingeras. 2013. <span>“<span class="nocase">STAR: ultrafast universal RNA-seq aligner.</span>”</span> <em>Bioinformatics (Oxford, England)</em> 29 (1): 15–21. <a href="https://doi.org/10.1093/bioinformatics/bts635">https://doi.org/10.1093/bioinformatics/bts635</a>.
+</div>
+<div id="ref-draper2014" class="csl-entry" role="listitem">
+Draper, Smith, N. R. 2014. <em>Applied Regression Analysis</em>. Wiley.
+</div>
+<div id="ref-Fu2015" class="csl-entry" role="listitem">
+Fu, Nai Yang, Anne C Rios, Bhupinder Pal, Rina Soetanto, Aaron T L Lun, Kevin Liu, Tamara Beck, et al. 2015. <span>“<span class="nocase">EGF-mediated induction of Mcl-1 at the switch to lactation is essential for alveolar cell survival.</span>”</span> <em>Nature Cell Biology</em> 17 (4): 365–75. <a href="https://doi.org/10.1038/ncb3117">https://doi.org/10.1038/ncb3117</a>.
+</div>
+<div id="ref-kruschke2015" class="csl-entry" role="listitem">
+Kruschke, J. K. 2015. <em>Doing Bayesian Data Analysis: A Tutorial with r, JAGS, and Stan</em>. Academic Press.
+</div>
+<div id="ref-Langmead2012" class="csl-entry" role="listitem">
+Langmead, Ben, and Steven L Salzberg. 2012. <span>“<span class="nocase">Fast gapped-read alignment with Bowtie 2.</span>”</span> <em>Nature Methods</em> 9 (4): 357–59. <a href="https://doi.org/10.1038/nmeth.1923">https://doi.org/10.1038/nmeth.1923</a>.
+</div>
+<div id="ref-lehmann2006" class="csl-entry" role="listitem">
+Lehmann, Romano, E. L. 2006. <em>Testing Statistical Hypotheses</em>. Springer.
+</div>
+<div id="ref-liao2013subread" class="csl-entry" role="listitem">
+Liao, Yang, Gordon K Smyth, and Wei Shi. 2013. <span>“<span class="nocase">The Subread aligner: fast, accurate and scalable read mapping by seed-and-vote</span>.”</span> <em>Nucleic Acids Research</em> 41: 16 pages.
+</div>
+<div id="ref-Liao2014" class="csl-entry" role="listitem">
+———. 2014. <span>“<span class="nocase">featureCounts: an efficient general purpose program for assigning sequence reads to genomic features.</span>”</span> <em>Bioinformatics (Oxford, England)</em> 30 (7): 923–30. <a href="https://doi.org/10.1093/bioinformatics/btt656">https://doi.org/10.1093/bioinformatics/btt656</a>.
+</div>
+<div id="ref-Lun2016" class="csl-entry" role="listitem">
+Lun, Aaron T L, Yunshun Chen, and Gordon K Smyth. 2016. <span>“<span class="nocase">It’s DE-licious: A Recipe for Differential Expression Analyses of RNA-seq Experiments Using Quasi-Likelihood Methods in edgeR.</span>”</span> <em>Methods in Molecular Biology (Clifton, N.J.)</em> 1418 (January): 391–416. <a href="https://doi.org/10.1007/978-1-4939-3578-9\_19">https://doi.org/10.1007/978-1-4939-3578-9\_19</a>.
+</div>
+<div id="ref-maglott2007" class="csl-entry" role="listitem">
+Maglott, Donna, Jim Ostell, Kim D Pruitt, and Tatiana Tatusova. 2007. <span>“Entrez Gene: Gene-Centered Information at <span>NCBI</span>.”</span> <em>Nucleic Acids Res.</em> 35 (Database issue): D26–31.
+</div>
+<div id="ref-marioni2008" class="csl-entry" role="listitem">
+Marioni, Mason, J. C. 2008. <span>“RNA-Seq: An Assessment of Technical Reproducibility and Comparison with Gene Expression Arrays.”</span> <em>Genome Research</em> 18: 1509–17.
+</div>
+<div id="ref-needleman1970" class="csl-entry" role="listitem">
+Needleman, Wunsch, S. B. 1970. <span>“A General Method Applicable to the Search for Similarities in the Amino Acid Sequence of Two Proteins.”</span> <em>Journal of Molecular Biology</em> 48 (3): 443–53.
+</div>
+<div id="ref-schena1995" class="csl-entry" role="listitem">
+Schena, Shalon, M. 1995. <span>“Quantitative Monitoring of Gene Expression Patterns with a Complementary DNA Microarray.”</span> <em>Science</em> 270: 467–70.
+</div>
+<div id="ref-smith1981" class="csl-entry" role="listitem">
+Smith, Waterman, T. F. 1981. <span>“Identification of Common Molecular Subsequences.”</span> <em>Journal of Molecular Biology</em> 147: 195–97.
+</div>
+<div id="ref-trapnell2009tophat" class="csl-entry" role="listitem">
+Trapnell, Cole, Lior Pachter, and Steven L Salzberg. 2009. <span>“<span class="nocase">TopHat: discovering splice junctions with RNA-seq</span>.”</span> <em>Bioinformatics</em> 25 (9): 1105–11. <a href="https://doi.org/doi:10.1093/bioinformatics/btp120">https://doi.org/doi:10.1093/bioinformatics/btp120</a>.
+</div>
+<div id="ref-wang2009" class="csl-entry" role="listitem">
+Wang, Gerstein, Z. 2009. <span>“RNA-Seq: A Revolutionary Tool for Transcriptomics.”</span> <em>Nature Reviews Genetics</em> 10: 57–63.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/quarto-dev/quarto-demo/edit/main/Chaper05_Counting.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/quarto-dev/quarto-demo/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

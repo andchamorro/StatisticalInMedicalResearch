@@ -14,10 +14,10 @@ Welcome to the **Statistical Analysis in Medical Research Using R** tutorial ser
 
 In this series, you will learn how to:
 
-- Understand the importance of statistical analysis in medical research
-- Perform basic data manipulation and visualization in R
-- Apply descriptive and inferential statistics to medical data
-- Interpret the results of statistical analyses in the context of medical research
+-   Understand the importance of statistical analysis in medical research
+-   Perform basic data manipulation and visualization in R
+-   Apply descriptive and inferential statistics to medical data
+-   Interpret the results of statistical analyses in the context of medical research
 
 ## Chapters
 
@@ -31,10 +31,12 @@ In the first chapter, we provide an overview of the role of statistics in medica
 
 The second chapter introduces you to the basics of programming in R. You will learn how to install R and RStudio, understand R syntax, and perform basic operations and data manipulation. This chapter sets the foundation for more advanced topics covered later in the series.
 
+### [Chapter 05: Counting](Chaper05_Counting.qmd)
+
+This chapter provides an introduction to the fundamental concepts and techniques involved in gene differential expression analysis, focusing on alignment, RNA sequencing, and counting.
+
 ## Getting Started
 
 To get started, ensure you have R and RStudio installed on your computer. If not, follow the installation instructions provided in Chapter 02.
 
-```{r, echo=FALSE}
-# Sample R code snippet to show in the document
-cat("Welcome to the Statistical Analysis in Medical Research Using R!")
+\`\`\`{r, echo=FALSE} \# Sample R code snippet to show in the document cat("Welcome to the Statistical Analysis in Medical Research Using R!")
