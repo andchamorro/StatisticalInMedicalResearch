@@ -121,6 +121,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -235,7 +264,7 @@ div.csl-indent {
 
 <section id="r-basics" class="level1">
 <h1><strong>R Basics</strong></h1>
-<p>This section covers everything you need to perform statistical analysis using R<span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">2024</a>)</span>. Similar to other programming languages, R has a base package and an Integrated Development Environment (IDE). The base package allows you to run R code on your computer, while R Studio is an IDE specifically designed for developing R programs and packages.</p>
+<p>This section covers the basics you need to perform descriptive statistics analysis using R<span class="citation" data-cites="base">(<a href="#ref-base" role="doc-biblioref">2024</a>)</span>. Similar to other programming languages, R has a base package and an Integrated Development Environment (IDE). The base package allows you to run R code on your computer, while R Studio is an IDE specifically designed for developing R programs and packages.</p>
 <section id="installing" class="level2">
 <h2 class="anchored" data-anchor-id="installing">Installing</h2>
 <p>The R base package can be downloaded from the <a href="https://cran.r-project.org/">official R website</a>. Once on the website, select the precompiled binary for your operating system, download the file, and install it. To verify that R has been successfully installed, open your command prompt (cmd) or terminal and type <code>R</code> to start the R console. To exit the R console, type <code>q()</code>.</p>
@@ -296,7 +325,6 @@ Type 'q()' to quit R.
 <p><strong>History:</strong></p>
 <p>The roots of descriptive statistics can be traced back to ancient civilizations, such as the Babylonians and Egyptians, who used basic statistical methods to manage agricultural data, censuses, and astronomical information. However, the formal development of descriptive statistics began in the 17th and 18th centuries. John Graunt, an English demographer, is often credited with laying the groundwork for statistical analysis through his work on mortality rates in the 1660s. His pioneering efforts in collecting and analyzing data led to the birth of modern statistics.</p>
 <p>In the 18th century, the field was further advanced by the work of mathematicians like Pierre-Simon Laplace and Carl Friedrich Gauss, who developed key statistical concepts and methods. The 19th and 20th centuries saw the emergence of more sophisticated statistical techniques and the formalization of the discipline. Descriptive statistics evolved to include a variety of measures and graphical representations that remain fundamental to data analysis today.</p>
-<p><strong>Examples:</strong></p>
 <ol type="1">
 <li><strong>Measures of Central Tendency:</strong>
 <ul>
@@ -320,15 +348,15 @@ Type 'q()' to quit R.
 <p>Descriptive statistics is essential in various fields, including economics, psychology, and social sciences, where it aids in making data-driven decisions. By providing a clear summary of data through measures of central tendency, dispersion, and graphical representations, descriptive statistics helps researchers and analysts interpret and communicate their findings effectively.</p>
 <section id="r-first-steps" class="level4">
 <h4 class="anchored" data-anchor-id="r-first-steps">R first steps</h4>
-<p>To perform descriptive statistics, we need to assign some numbers to a variable. This can be done using the `c()` function, which stands for combine.</p>
+<p>To perform descriptive statistics, we need to assign some list of numbers to a variable. This can be done using the `c()` function, which stands for combine.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There a few other handy ways to make numbers. We can use <code>seq()</code> to make a sequence. Here’s making the numbers from 1 to 100</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>one_to_one_hundred <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can repeat things, using rep. Here’s making 10 5s, and 25 1s:</p>
+<p>We can repeat things, using rep. Here’s making 5 10s, and 25 1s:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">10</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -383,7 +411,12 @@ Type 'q()' to quit R.
 </section>
 <section id="median" class="level4">
 <h4 class="anchored" data-anchor-id="median">Median</h4>
-<p>The median is the number that lies exactly in the middle of a sorted list of numbers. If the list has an even number of elements, the median is calculated as the average of the two middle numbers. You can use the <code>median()</code> function to find it. For example, in a list of three numbers, the middle number is 2, so the median is 2.</p>
+<p>The median is the number that lies exactly in the middle of a sorted list of numbers. If the list has an even number of elements, the median is calculated as the average of the two middle numbers.</p>
+<ol type="1">
+<li>If <span class="math inline">\(n\)</span> is odd, <span class="math inline">\(med(X) = X_{(n+1)/2}\)</span></li>
+<li>If <span class="math inline">\(n\)</span> is even, <span class="math inline">\(med(X) = \frac{X_{n/2} + X_{(n+2) + 1}}{2}\)</span></li>
+</ol>
+<p>You can use the <code>median()</code> function to find it. For example, in a list of three numbers, the middle number is 2, so the median is 2.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -423,50 +456,50 @@ Type 'q()' to quit R.
 </div>
 </div>
 <section id="range" class="level4">
-<h4 class="anchored" data-anchor-id="range">range</h4>
+<h4 class="anchored" data-anchor-id="range">Range</h4>
 <p>The range is the minimum and maximum values in the set, we use the <code>range</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -15.50534 214.69067</code></pre>
+<pre><code>[1]  -7.461576 207.119929</code></pre>
 </div>
 </div>
 </section>
-<section id="var-variance" class="level4">
-<h4 class="anchored" data-anchor-id="var-variance">var = variance</h4>
+<section id="variance" class="level4">
+<h4 class="anchored" data-anchor-id="variance">Variance</h4>
 <p>We can find the sample variance using <code>var()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1269.774</code></pre>
+<pre><code>[1] 1296.951</code></pre>
 </div>
 </div>
 </section>
-<section id="sd-standard-deviation" class="level4">
-<h4 class="anchored" data-anchor-id="sd-standard-deviation">sd = standard deviation</h4>
-<p>We find the sample standard deviation us SD.</p>
+<section id="standard-deviation" class="level4">
+<h4 class="anchored" data-anchor-id="standard-deviation">Standard Deviation</h4>
+<p>We find the sample standard deviation us <code>sd()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 35.63388</code></pre>
+<pre><code>[1] 36.01321</code></pre>
 </div>
 </div>
 <p>Remember that the standard deviation is just the square root of the variance, see:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(sample_numbers))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 35.63388</code></pre>
+<pre><code>[1] 36.01321</code></pre>
 </div>
 </div>
 </section>
-<section id="descriptives-review" class="level4">
-<h4 class="anchored" data-anchor-id="descriptives-review">Descriptives Review</h4>
+<section id="review" class="level4">
+<h4 class="anchored" data-anchor-id="review">Review</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sample_numbers <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">101</span>,<span class="dv">35</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 100406.7</code></pre>
+<pre><code>[1] 101370.6</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -474,34 +507,34 @@ Type 'q()' to quit R.
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 100.4067</code></pre>
+<pre><code>[1] 101.3706</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 100.1993</code></pre>
+<pre><code>[1] 101.2754</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 76.93276</code></pre>
+<pre><code>[1] 48.96654</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -10.57402 203.63734</code></pre>
+<pre><code>[1] -42.53119 227.15131</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1320.744</code></pre>
+<pre><code>[1] 1286.185</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(sample_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 36.34204</code></pre>
+<pre><code>[1] 35.86342</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="descriptives-by-conditions" class="level3">
-<h3 class="anchored" data-anchor-id="descriptives-by-conditions">Descriptives by conditions</h3>
-<p>In some instances, a single variable may contain a number of values, which can be analyzed using the aforementioned functions to obtain descriptive statistics. Conversely, in the majority of cases encountered in this course, a data frame comprising numerous numerical values representing different conditions will be employed. In such instances, it is necessary to identify descriptive statistics for each set of values within each condition.</p>
+<section id="descriptive-statistics-by-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-statistics-by-conditions">Descriptive Statistics by conditions</h3>
+<p>In some instances, a single variable may contain a number of values, which can be analyzed using the aforementioned functions to obtain descriptive statistics. In contrast, in the majority of cases encountered in this course, a data frame comprising multiple numerical values representing distinct conditions will be utilized. In such instances, it is imperative to identify descriptive statistics for each set of values within each condition.</p>
 <p>Fortunately, the R programming language is highly adept at performing this task in a single operation. To illustrate this concept, consider the following example. A data frame containing 10 numbers for each condition will be created. There are 10 conditions, each labeled A, B, C, D, E, F, G, H, I, and J.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">10</span>,<span class="dv">5</span>)</span>
@@ -513,15 +546,15 @@ Type 'q()' to quit R.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"A"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.568879</code></pre>
+<pre><code>[1] 8.749205</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"B"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 7.898336</code></pre>
+<pre><code>[1] 10.85871</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_df[my_df<span class="sc">$</span>conditions<span class="sc">==</span><span class="st">"C"</span>,]<span class="sc">$</span>scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.898508</code></pre>
+<pre><code>[1] 7.650824</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and then keep going</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -552,16 +585,16 @@ Attaching package: 'dplyr'</code></pre>
 <pre><code># A tibble: 10 × 2
    conditions means
    &lt;chr&gt;      &lt;dbl&gt;
- 1 A           9.57
- 2 B           7.90
- 3 C           9.90
- 4 D           9.48
- 5 E          10.4 
- 6 F          10.8 
- 7 G           8.71
- 8 H           6.81
- 9 I           8.44
-10 J           9.94</code></pre>
+ 1 A           8.75
+ 2 B          10.9 
+ 3 C           7.65
+ 4 D          10.0 
+ 5 E          12.2 
+ 6 F           9.27
+ 7 G          11.3 
+ 8 H          10.2 
+ 9 I           8.76
+10 J          12.4 </code></pre>
 </div>
 </div>
 <p>A few points require further consideration. Firstly, the printout of this was of an inferior quality. A solution to this issue is to create a new variable containing the results of the code and then use the <code>knitr::kable</code> function to print the variable in a more aesthetically pleasing manner when the document is compiled.</p>
@@ -582,43 +615,43 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">9.568879</td>
+<td style="text-align: right;">8.749205</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">7.898336</td>
+<td style="text-align: right;">10.858707</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">9.898508</td>
+<td style="text-align: right;">7.650824</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">9.481476</td>
+<td style="text-align: right;">10.022154</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">10.400840</td>
+<td style="text-align: right;">12.234878</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">10.824992</td>
+<td style="text-align: right;">9.266721</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">8.708118</td>
+<td style="text-align: right;">11.306428</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">6.814567</td>
+<td style="text-align: right;">10.228266</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">8.440088</td>
+<td style="text-align: right;">8.759115</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">9.944416</td>
+<td style="text-align: right;">12.424293</td>
 </tr>
 </tbody>
 </table>
@@ -647,53 +680,53 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">9.568879</td>
-<td style="text-align: right;">4.363911</td>
+<td style="text-align: right;">8.749205</td>
+<td style="text-align: right;">3.809475</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">7.898336</td>
-<td style="text-align: right;">6.142058</td>
+<td style="text-align: right;">10.858707</td>
+<td style="text-align: right;">4.655481</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">9.898508</td>
-<td style="text-align: right;">4.174351</td>
+<td style="text-align: right;">7.650824</td>
+<td style="text-align: right;">4.776866</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">9.481476</td>
-<td style="text-align: right;">4.417735</td>
+<td style="text-align: right;">10.022154</td>
+<td style="text-align: right;">5.564239</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">10.400840</td>
-<td style="text-align: right;">4.286671</td>
+<td style="text-align: right;">12.234878</td>
+<td style="text-align: right;">3.934642</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">10.824992</td>
-<td style="text-align: right;">5.056005</td>
+<td style="text-align: right;">9.266721</td>
+<td style="text-align: right;">4.074786</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">8.708118</td>
-<td style="text-align: right;">5.028512</td>
+<td style="text-align: right;">11.306428</td>
+<td style="text-align: right;">6.359828</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">6.814567</td>
-<td style="text-align: right;">4.334941</td>
+<td style="text-align: right;">10.228266</td>
+<td style="text-align: right;">5.714836</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">8.440088</td>
-<td style="text-align: right;">5.323637</td>
+<td style="text-align: right;">8.759115</td>
+<td style="text-align: right;">7.025043</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">9.944416</td>
-<td style="text-align: right;">5.418236</td>
+<td style="text-align: right;">12.424293</td>
+<td style="text-align: right;">6.270404</td>
 </tr>
 </tbody>
 </table>
@@ -723,73 +756,73 @@ Attaching package: 'dplyr'</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A</td>
-<td style="text-align: right;">9.568879</td>
-<td style="text-align: right;">4.363911</td>
-<td style="text-align: right;">2.6806752</td>
-<td style="text-align: right;">16.22453</td>
+<td style="text-align: right;">8.749205</td>
+<td style="text-align: right;">3.809475</td>
+<td style="text-align: right;">2.6909396</td>
+<td style="text-align: right;">14.36260</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">B</td>
-<td style="text-align: right;">7.898336</td>
-<td style="text-align: right;">6.142058</td>
-<td style="text-align: right;">-1.9030173</td>
-<td style="text-align: right;">16.21508</td>
+<td style="text-align: right;">10.858707</td>
+<td style="text-align: right;">4.655481</td>
+<td style="text-align: right;">4.3610864</td>
+<td style="text-align: right;">18.34482</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">C</td>
-<td style="text-align: right;">9.898508</td>
-<td style="text-align: right;">4.174351</td>
-<td style="text-align: right;">2.0903479</td>
-<td style="text-align: right;">16.01299</td>
+<td style="text-align: right;">7.650824</td>
+<td style="text-align: right;">4.776866</td>
+<td style="text-align: right;">1.2825037</td>
+<td style="text-align: right;">19.33234</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">D</td>
-<td style="text-align: right;">9.481476</td>
-<td style="text-align: right;">4.417735</td>
-<td style="text-align: right;">2.6443660</td>
-<td style="text-align: right;">15.01172</td>
+<td style="text-align: right;">10.022154</td>
+<td style="text-align: right;">5.564239</td>
+<td style="text-align: right;">3.2911257</td>
+<td style="text-align: right;">17.71844</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">E</td>
-<td style="text-align: right;">10.400840</td>
-<td style="text-align: right;">4.286671</td>
-<td style="text-align: right;">2.4500283</td>
-<td style="text-align: right;">17.09062</td>
+<td style="text-align: right;">12.234878</td>
+<td style="text-align: right;">3.934642</td>
+<td style="text-align: right;">6.2258202</td>
+<td style="text-align: right;">18.29770</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
-<td style="text-align: right;">10.824992</td>
-<td style="text-align: right;">5.056005</td>
-<td style="text-align: right;">0.0640971</td>
-<td style="text-align: right;">16.13802</td>
+<td style="text-align: right;">9.266721</td>
+<td style="text-align: right;">4.074786</td>
+<td style="text-align: right;">3.3725043</td>
+<td style="text-align: right;">17.87850</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G</td>
-<td style="text-align: right;">8.708118</td>
-<td style="text-align: right;">5.028512</td>
-<td style="text-align: right;">2.4619089</td>
-<td style="text-align: right;">16.63118</td>
+<td style="text-align: right;">11.306428</td>
+<td style="text-align: right;">6.359828</td>
+<td style="text-align: right;">2.4939802</td>
+<td style="text-align: right;">23.04869</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">H</td>
-<td style="text-align: right;">6.814567</td>
-<td style="text-align: right;">4.334941</td>
-<td style="text-align: right;">-1.9904125</td>
-<td style="text-align: right;">11.49618</td>
+<td style="text-align: right;">10.228266</td>
+<td style="text-align: right;">5.714836</td>
+<td style="text-align: right;">0.0305871</td>
+<td style="text-align: right;">17.12949</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">I</td>
-<td style="text-align: right;">8.440088</td>
-<td style="text-align: right;">5.323637</td>
-<td style="text-align: right;">-0.6654701</td>
-<td style="text-align: right;">15.73836</td>
+<td style="text-align: right;">8.759115</td>
+<td style="text-align: right;">7.025043</td>
+<td style="text-align: right;">-4.1064345</td>
+<td style="text-align: right;">18.98884</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">J</td>
-<td style="text-align: right;">9.944416</td>
-<td style="text-align: right;">5.418236</td>
-<td style="text-align: right;">2.0343505</td>
-<td style="text-align: right;">22.10791</td>
+<td style="text-align: right;">12.424293</td>
+<td style="text-align: right;">6.270404</td>
+<td style="text-align: right;">1.8025658</td>
+<td style="text-align: right;">20.80197</td>
 </tr>
 </tbody>
 </table>
