@@ -1,0 +1,450 @@
+---
+title: "r_calculations"
+output: html_document
+---
+
+# Outline
+
+1.  **What is R and RStudio**
+2.  **Basic Statements in R**
+3.  **Application in RNA Sequencing**
+
+# Objectives
+
+1.  After this talk, you will learn what is R, RStudio and their differences.
+2.  Basic concepts of R programming
+3.  A more critical thinking and judging of the codes you will find on the web.
+4.  You will learn about the workflow of libraries like dpylr
+
+# **The History**
+
+R is actually the modern implementation (like a dialect of a language) of another language called S. John Chambers, Rick Becker, and Allan Wilks of Bell Laboratories developed the language in 1975-1976 (S was just one of several statistical languages developed at Bell), they “turn ideas into software, quickly and faithfully.” These three designed S as a more sensible alternative to calling Fortran subroutines, and it got that named because many of the suggested names featured the letter ‘s,’ and it fit well with languages like C.
+
+S was released in the wild outside of Bell Laboratories in 1980, and people could access source versions of the language by 1981. Major changes were made to S and its syntax in the late 80’s. In 1991, R was created by Ross Ihaka and Robert Gentleman in the Department of Statistics at the University of Auckland, New Zealand. In 1993 the first announcement of R was made to the public. Ross’s and Robert’s experience developing R is documented in a 1996 paper in the Journal of Computational and Graphical Statistics:
+
+> Ross Ihaka and Robert Gentleman. R: A language for data analysis and graphics. Journal of Computational and Graphical Statistics, 5(3):299--314, 1996
+
+In 1995, Martin Mächler made an important contribution by convincing Ross and Robert to use the GNU General Public License to make R free software. This was critical because it allowed for the source code for the entire R system to be accessible to anyone who wanted to tinker with it (more on free software later).
+
+# **Getting Started with R**
+
+Similar to other programming languages, R has a base package and an Integrated Development Environment (IDE). The base package allows you to run R code on your computer, while R Studio is an IDE specifically designed for developing R programs and packages.
+
+## Installing
+
+The R base package can be downloaded from the [official R website](https://cran.r-project.org/). Once on the website, select the precompiled binary for your operating system, download the file, and install it. To verify that R has been successfully installed, open your command prompt (cmd) or terminal and type `R` to start the R console. To exit the R console, type `q()`.
+
+## **What is RStudio?**
+
+RStudio is a flexible, multifunctional open-source Integrated development environment (IDE) that serves as a graphical front-end for working with R (version 3.0.1 or higher). Additionally, it supports other programming languages like Python and SQL. Key features of RStudio include a user-friendly interface, the ability to write and save reusable scripts, and easy access to imported data and created objects such as variables and functions. It provides exhaustive help on any object, offers code autocompletion, and facilitates project organization and collaboration. Users can preview plots, switch between the terminal and console, and track their operational history, making it an indispensable tool for data analysis and programming.
+
+### How to Install RStudio:
+
+To install RStudio, begin by visiting the [official RStudio website](https://posit.co/download/rstudio-desktop/). Scroll down to locate the download buttons for RStudio Desktop. Select the precompiled binary appropriate for your operating system, download the file, and install it.
+
+# **R nuts-and-bolts**/**Control Structures**
+
+Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some "logic" into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.
+
+Commonly used control structures are
+
+-   `if` and `else`: testing a condition and acting on it
+
+-   `for`: execute a loop a fixed number of times
+
+-   `while`: execute a loop *while* a condition is true
+
+-   `repeat`: execute an infinite loop (must `break` out of it to stop)
+
+-   `break`: break the execution of a loop
+
+-   `next`: skip an interation of a loop
+
+Most control structures are not used in interactive sessions, but rather when writing functions or longer expressions. However, these constructs do not have to be used in functions and it's a good idea to become familiar with them before we delve into functions.
+
+## Conditional statements `if`-`else`
+
+The `if` statement allows you to execute a block of code if a condition is true.
+
+### Syntax:
+
+```         
+$ R
+if (condition) {
+  # Code to execute if condition is true
+}
+```
+
+### Example:
+
+```{r}
+x <- 5
+if (x > 0) {
+  print("x is positive")
+}
+
+```
+
+### `if-else` Statement
+
+The `if-else` statement allows you to execute one block of code if a condition is true and another block of code if the condition is false.
+
+### Syntax:
+
+```         
+$ R
+if (condition) {
+  # Code to execute if condition is true
+} else {
+  # Code to execute if condition is false
+}
+```
+
+### Example:
+
+```{r}
+x <- -3
+if (x > 0) {
+  print("x is positive")
+} else {
+  print("x is negative or zero")
+}
+```
+
+The `if-else` statement allows you to check multiple conditions and execute different blocks of code based on which condition is true.
+
+### Example:
+
+```{r}
+
+```
+
+Conditional statements are essential in R for decision-making and control flow, allowing you to execute different code paths based on specific conditions.
+
+## Flow control
+
+In scripting, R doesn't necessarily start at the top of the file and run straight through to the end. Depending on how you write the script, you can have R repeat several commands or skip over different commands. A loop in R is a control flow statement that allows you to repeat a block of code multiple times. There are several types of loops in R, each serving different purposes and use cases. The most common types of loops in R are `for` loops and `while` loops.
+
+### `for` Loop
+
+A `for` loop is used to iterate over a sequence (such as a vector, list, or any iterable object) and execute a block of code for each element in the sequence.
+
+#### Syntax:
+
+```         
+$ R
+for (variable in sequence) {
+  # Code to be executed for each element
+}
+```
+
+#### Example:
+
+```{r}
+# Print numbers from 1 to 5
+
+for (i in 1:5) {
+  print(i)
+}
+
+```
+
+### `while` Loop
+
+A `while` loop repeatedly executes a block of code as long as a specified condition is `TRUE`.
+
+#### Syntax:
+
+```         
+$ R
+while (condition) {
+  # Code to be executed as long as the condition is TRUE
+}
+```
+
+#### Example:
+
+```{r}
+# Print numbers from 1 to 5
+i <- 1
+while (i <= 5) {
+  print(i)
+  i <- i + 1
+}
+```
+
+### `repeat` Loop
+
+A `repeat` loop executes an infinite loop unless explicitly stopped using the `break` statement.
+
+#### Syntax:
+
+```         
+$ R
+repeat {
+  # Code to be executed repeatedly
+  if (condition) {
+    break
+  }
+}
+```
+
+#### Example:
+
+```{r}
+# Print numbers from 1 to 5
+i <- 1
+repeat {
+  print(i)
+  i <- i + 1
+  if (i > 5) {
+    break
+  }
+}
+
+```
+
+### Loop Alternatives
+
+In R, vectorized operations and the `apply` family of functions (`lapply`, `sapply`, `apply`, `tapply`, `mapply`) are often used as alternatives to loops for more efficient and concise code.
+
+#### Example using `apply()`, `lapply()`, `sapply()`, and `tapply()` family:
+
+```{r}
+# Create a list of numbers from 1 to 5
+numbers <- list(1, 2, 3, 4, 5)
+# Apply a function to each element of the list
+squared_numbers <- lapply(numbers, function(x) x^2)
+# Print the squared numbers
+print(squared_numbers)
+
+```
+
+Loops are powerful tools in R for repeating tasks and iterating over data structures. However, for performance and readability, vectorized operations and `apply` functions are often preferred. The apply() collection is a part of R essential package. This family of functions helps us to apply a certain function to a certain data frame, list, or vector and return the result as a list or vector depending on the function we use.
+
+Let's use a bioinformatics example. Suppose we have a vector of DNA sequences and we want to calculate the GC content of each sequence. Here's the script:
+
+```{r}
+## --- bioexample.R
+#  author: Andres Chamorro
+#  date: Feb 12 2025
+
+# The DNA sequences
+sequences <- c("ATGCGTA", "CGTACGT", "TACGTACG")
+
+```
+
+In this script, the vector of possible values for the `seq` variable corresponds to the DNA sequences. The body of the loop calculates the GC content of each sequence and prints it. When we run this script, R starts at the top and creates a new variable called `seq` and assigns it a value of the first DNA sequence. It then moves down to the loop, and "notices" that there are more sequences in the vector. It then enters the body of the loop (inside the curly braces). The commands here instruct R to calculate the GC content of the sequence and print it. R then returns to the top of the loop, and rechecks if there are more sequences in the vector. If there are, then R goes on to execute all. This continues until all sequences in the vector have been processed. At this point, the loop stops, and R finally reaches the end of the script.
+
+## Functions in R
+
+A function in R is a block of code that performs a specific task, which can be reused and executed when called. Functions can take inputs (arguments), perform operations on those inputs, and return outputs.
+
+### Syntax:
+
+```         
+$ R
+function_name <- function(arg1, arg2, ...) {
+  # Code to execute
+  return(result)
+}
+```
+
+### Example:
+
+```{r}
+# Define a simple function to calculate the gc content
+gc_content <- function(seq) {
+  return((sum(nchar(gsub("[AT]", "", seq))) / nchar(seq)) * 100)
+}
+# Call the function
+
+```
+
+### Custom Functions
+
+Functions in R are powerful tools that can be customized to perform a wide variety of tasks. In bioinformatics, they are particularly useful for tasks such as sequence analysis, gene expression normalization, and sequence alignment. By encapsulating code into functions, you can make your analysis more atomic, reusable, and easier to understand.
+
+#### 1. **DNA Sequence Analysis: Count Nucleotides**
+
+Counting nucleotides is a fundamental task in genomics. Understanding the composition of a DNA sequence can provide insights into genetic variations and functions.
+
+```{r}
+# Function to count nucleotides in a DNA sequence
+
+```
+
+#### 2. **Protein Sequence Analysis: Translate DNA to Protein**
+
+Translating DNA to protein is crucial for understanding gene expression and function. This function helps in converting nucleotide sequences into their corresponding amino acid sequences, aiding in protein analysis.
+
+```{r}
+# Load necessary library
+# To install package, enter in console"
+# if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("Biostrings")
+library(Biostrings)
+
+# Function to translate DNA sequence to protein sequence
+
+# Test the function
+dna <- "ATGGTCTAACGTA"
+# print(translate_dna(dna)) # OUTPUT: "MV*R"
+
+```
+
+## **Gene Expression Analysis: Manipulating and analyzing data with dplyr**
+
+Differential expression analysis is a statistical method used to identify genes that show significant differences in expression levels between different conditions or groups. This analysis typically involves hypothesis testing, where the null hypothesis assumes no difference in gene expression between the groups. Common statistical approaches include t-tests, Wald tests, and generalized linear models, often adjusted for multiple comparisons to control the false discovery rate. Best practices in differential expression analysis emphasize the importance of proper normalization, accounting for batch effects, and using robust statistical models to handle the inherent variability and noise in RNA-seq data. These practices ensure the reliability and reproducibility of the results, which are crucial for downstream biological interpretations and applications in precision medicine.
+
+### Install and Attached the libraries
+
+```{r}
+if (!("BiocManager" %in% installed.packages())) {
+  # Install this package if it isn't installed yet
+  install.packages("BiocManager")
+}
+
+if (!("DESeq2" %in% installed.packages())) {
+  # Install this package if it isn't installed yet
+  BiocManager::install("DESeq2", update = FALSE)
+}
+# Attach the DESeq2 library
+library(DESeq2)
+```
+
+To ensure reproducibility in our jitter plot created with the DESeq2::plotCounts() function, we'll set the seed to manage the randomness involved.
+
+```{r}
+set.seed(as.integer(gsub("-", "", "2025-02-12")))
+```
+
+```{r}
+if (!("dplyr" %in% installed.packages())) {
+  # Install this package if it isn't installed yet
+  install.packages("dplyr")
+}
+
+library(dplyr)
+```
+
+The dplyr package is an optimized and distilled version of plyr package. While dplyr doesn't introduce new functionality to R, it significantly simplifies existing tasks that can be done with base R.
+
+A key contribution of dplyr is its "grammar" for data manipulation, using verbs to operate on data frames. This grammar allows you to clearly communicate your data manipulation steps in a way that others can easily understand, provided they are familiar with the grammar. Additionally, dplyr functions are very fast, as many key operations are implemented in C++. This provides an efficient and user-friendly abstraction for data manipulation.
+
+### `dplyr` grammar
+
+The `dplyr` package provides a set of key "verbs."
+
+-   `select`: return a subset of the columns of a data frame using flexible notation.
+
+-   `filter`: get a smaller set of rows from a data frame based on logical conditions.
+
+-   `arrange`: reorder rows from a data frame
+
+-   `rename`: rename variables in a data frame
+
+-   `mutate`: add/transform new variables/columns
+
+-   `summarise` / `summarize`: generate summary statistics of different variables in the data frame
+
+-   `%>%`: the "pipe" operator connects multiple "verbs" outputs together in a pipeline.
+
+The `dplyr` package includes several specialized data types that it leverages for efficiency. For instance, it has a convenient `print` method that prevents excessive data from being printed to the console. Typically, these additional data types are transparent to the user and don't require any special attention. \### Gattering dataset
+
+```{r}
+# Define file paths for data directory, gene expression matrix, and metadata
+data_dir <- file.path("../data", "SRP123625")
+
+data_file <- file.path(data_dir, "SRP123625.tsv")
+metadata_file <- file.path(data_dir, "metadata_SRP123625.tsv")
+```
+
+We can now use the file.exists() function to verify the files are in the specified locations.
+
+```{r}
+# Check if the gene expression matrix and metadata file is at the path stored
+file.exists(data_file)
+file.exists(metadata_file)
+```
+
+### Importing dataset
+
+The readr package is designed for efficiently reading large flat files. It provides faster alternatives to functions like read.table() and read.csv(), with read_table(), read_csv(), and read_tsv being the analogous functions in readr. These functions not only improve speed but also offer features like progress meters.
+
+You can use read_table(), read_csv(), and read_tsv in place of read.table() and read.csv() in most cases. Additionally, if non-fatal issues occur while reading the data, readr will issue a warning and include information in the returned data frame about which rows triggered the warning. This feature is particularly useful for debugging data issues before diving into analysis.
+
+```{r}
+# Read in metadata TSV file
+
+# Read in data TSV file
+
+```
+
+The pipeline operater `%>%` is very handy for stringing together multiple dplyr functions in a sequence of operations. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset. Pipes in R look like %\>% (as made available via the magrittr package, installed automatically with dplyr) or \|\> (as available in base R). If you use RStudio, you can type the pipe with Cmd + Shift + M if you have a Mac or Ctrl + Shift + M if you have a PC.
+
+A data frame is a fundamental data structure in statistics and R, where each row represents an observation and each column represents a variable, measure, feature, or characteristic of that observation. R's internal implementation of data frames is commonly used, but there are also CRAN packages that implement data frames using relational databases, enabling the handling of very large datasets.
+
+```{r}
+print(expression_df)
+```
+
+Let's make sure the expression data and the metadata are in the same order.
+
+```{r}
+# Make sure that expression_df columns and metadata are in the same order
+
+all.equal(colnames(expression_df), metadata$refinebio_accession_code)
+```
+
+```{r}
+print(metadata)
+```
+
+Processing metadata from mouse lymphoid cells with human RPL10, identifying whether they have the R98S mutation or are wild-type (WT). The mutation status is extracted from the `refinebio_title` variable and stored in a new column called mutation_status.
+
+The `mutate()` function exists to compute transformations of variables in a data frame. Often, you want to create new variables that are derived from existing variables and mutate() provides a clean interface for doing that.
+
+```{r}
+
+```
+
+The `select()` function can be used to select columns of a data frame that you want to focus on. Often you’ll have a large data frame containing “all” of the data, but any given analysis might only use a subset of variables or observations. The select() function allows you to get the few columns you might need.
+
+```{r}
+select(metadata, refinebio_title, mutation_status)
+```
+
+Before we proceed with our analysis, it's important to ensure that the mutation_status variable is treated as a factor. This allows us to define the possible values and their order, which is crucial for accurate data manipulation and visualization. The following code snippet converts mutation_status into a factor and sets the levels appropriately
+
+```{r}
+# Make mutation_status a factor and set the levels appropriately
+metadata <- metadata %>%
+  mutate(
+    mutation_status = factor(mutation_status, levels = c("reference", "R98S"))
+  )
+```
+
+### Create a DESeq2Dataset
+
+To ensure reliable differential expression results, we need to filter out genes that are not expressed or have low expression counts. These genes do not provide enough data for accurate analysis and can unnecessarily consume memory during testing. Therefore, we'll pre-filter our dataset to retain only those genes with a total of 10 or more reads across all samples. This step helps streamline our analysis and improve the efficiency of our computations.
+
+```{r}
+# Filter out genes that are not expressed or have low expression counts, row sums greater that 10
+filtered_expression_df <- expression_df
+```
+
+```{r}
+# Round all expression counts to the nearest integer
+gene_matrix <- round(filtered_expression_df)
+
+ddset <- DESeqDataSetFromMatrix(
+  # Provide the non-normalized count data
+  countData = gene_matrix,
+  # Include the metadata data frame
+  colData = metadata,
+  # Specify the experimental variable for the design
+  design = ~mutation_status
+)
+```
